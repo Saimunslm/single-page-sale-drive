@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ settings.product_name }} - VSL</title>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@100..800&display=swap"
+        as="style">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@100..800&display=swap&font-display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    </noscript>
+
+    {% if settings.gtm_id %}
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', '{{ settings.gtm_id }}');</script>
+    {% endif %}
+
+    {% if settings.custom_head_script %}
+    {{ settings.custom_head_script|safe }}
+    {% endif %}
+
+    <style>
+        body {
+            font-family: 'Anek Bangla', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f8fafc;
+        }
+
+        .font-anek {
+            font-family: 'Anek Bangla', sans-serif;
+        }
+
+        .vsl-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .sticky-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 10px;
+            right: 10px;
+            z-index: 100;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .sticky-btn {
+                display: block;
+            }
+
+            .mobile-heading {
+                font-size: 1.35rem !important;
+                line-height: 1.4 !important;
+            }
+
+            .mobile-badge {
+                font-size: 1.25rem !important;
+                padding: 8px 15px !important;
+            }
+        }
+
+        .free-delivery-badge {
+            background: linear-gradient(45deg, #ef4444, #f59e0b);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            animation: bounce-slow 2s infinite;
+            font-size: 1.8rem;
+            margin-top: 10px;
+        }
+
+        @keyframes bounce-slow {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .pricing-card {
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card.best-seller {
+            border: 3px solid #f59e0b;
+            transform: scale(1.05);
+            z-index: 10;
+            animation: pulse-popular 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-popular {
+            0% {
+                transform: scale(1.05);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+
+            100% {
+                transform: scale(1.05);
+            }
+        }
+
+        .best-seller-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f59e0b;
+            color: white;
+            padding: 2px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        /* Review Horizontal Scroll */
+        .reviews-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 1.5rem;
+            padding: 1rem 0.5rem;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .reviews-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .review-card {
+            flex: 0 0 85%;
+            scroll-snap-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .review-card {
+                flex: 0 0 calc(33.333% - 1rem);
+            }
+        }
+    </style>
+</head>
+
+<body class="text-gray-800">
+    {% if settings.custom_body_script %}
+    {{ settings.custom_body_script|safe }}
+    {% endif %}
+
+    <!-- 1. Logo Section -->
+    <header class="py-4 bg-white border-b border-gray-50">
+        <div class="container mx-auto px-4 flex flex-col items-center">
+            {% if settings.logo_path %}
+            <img src="{{ url_for('static', filename=settings.logo_path) }}" alt="{{ settings.shop_name }}"
+                class="h-12 w-auto object-contain" width="160" height="48">
+            {% else %}
+            <div class="text-2xl font-black text-amber-600 font-anek">{{ settings.shop_name }}</div>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- 2. Headline & Delivery Badge -->
+    <div class="bg-amber-50 py-8 text-center border-b border-amber-100 px-4">
+        <h1 class="text-2xl md:text-3xl font-black text-gray-900 leading-tight font-anek mobile-heading">
+            <span class="font-black">{{ settings.product_name }} - <span
+                    class="text-amber-600 underline decoration-wavy decoration-amber-300">স্বাস্থ্য ও স্বাদের</span> এক
+                অনন্য মেলবন্ধন!</span>
+        </h1>
+        <div class="mt-4">
+            <div class="free-delivery-badge font-anek mobile-badge">
+                <i class="fas fa-truck-fast mr-3"></i> সারাদেশে ফ্রি হোম ডেলিভারি!
+            </div>
+        </div>
+    </div>
+
+    <main class="vsl-container px-4 mt-8">
+        <!-- 3. Video Player -->
+        <div class="mb-8">
+            <div class="video-container bg-black shadow-2xl">
+                {% if settings.video_url %}
+                {% if 'youtube.com' in settings.video_url or 'youtu.be' in settings.video_url %}
+                <iframe
+                    src="{{ settings.video_url }}{% if '?' in settings.video_url %}&{% else %}?{% endif %}autoplay=1&mute=1"
+                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+                {% else %}
+                <iframe src="{{ settings.video_url }}" frameborder="0" allow="autoplay; fullscreen"
+                    allowfullscreen></iframe>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- 4. CTA Button -->
+        <div class="text-center mb-16">
+            <a href="#checkout"
+                class="inline-block bg-amber-600 hover:bg-amber-700 text-white px-10 py-4 rounded-xl text-xl font-black shadow-xl transition transform hover:scale-105">
+                অর্ডার করতে এখানে ক্লিক করুন
+            </a>
+        </div>
+
+        <!-- 5. কেন আমাদের হানি নাট সেরা? -->
+        <section class="bg-white p-6 md:p-10 rounded-3xl shadow-sm border border-gray-100 mb-12">
+            <h2 class="text-2xl md:text-3xl font-black mb-8 text-center text-gray-900 font-anek">কেন আমাদের হানি নাট
+                সেরা?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-amber-50 p-6 rounded-2xl border border-amber-100">
+                    <h3 class="text-xl font-bold text-amber-800 mb-3 font-anek"><i
+                            class="fas fa-certificate mr-2"></i>প্রিমিয়াম কোয়ালিটি</h3>
+                    <p class="text-gray-600 leading-relaxed">আমরা বাছাই করা ২০+ উপাদানের মিশ্রণে তৈরি করি আমাদের স্পেশাল
+                        হানি নাট। কোনো প্রকার কৃত্রিম মিষ্টি বা প্রিজারভেটিভ ব্যবহার করা হয় না।</p>
+                </div>
+                <div class="bg-amber-50 p-6 rounded-2xl border border-amber-100">
+                    <h3 class="text-xl font-bold text-amber-800 mb-3 font-anek"><i class="fas fa-tint mr-2"></i>খাঁটি
+                        সুন্দরবনের মধু</h3>
+                    <p class="text-gray-600 leading-relaxed">আমরা শতভাগ খাঁটি এবং প্রাকৃতিক সুন্দরবনের মধু ব্যবহার করি,
+                        যা শরীরের জন্য অত্যন্ত উপকারী এবং পুষ্টিকর।</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Product Photo Section with CTA -->
+        {% if settings.image_path %}
+        <section class="mb-16 text-center">
+            <div
+                class="bg-white p-6 md:p-10 rounded-3xl shadow-lg border border-gray-100 inline-block w-full max-w-2xl">
+                <h2 class="text-2xl md:text-3xl font-black mb-6 text-gray-900 font-anek">{{
+                    settings.product_name|bn_digits }}
+                </h2>
+                <img src="{{ url_for('static', filename=settings.image_path) }}" alt="{{ settings.product_name }}"
+                    class="w-full h-auto rounded-2xl shadow-md border-2 border-amber-50 mx-auto" width="600"
+                    height="600" style="aspect-ratio: 1/1;" fetchpriority="high">
+
+                <div class="mt-8 md:mt-10 px-4">
+                    <a href="#checkout"
+                        class="block md:inline-block bg-amber-600 hover:bg-amber-700 text-white px-6 md:px-12 py-4 md:py-5 rounded-2xl text-xl md:text-2xl font-black shadow-xl transition transform hover:scale-105">
+                        অর্ডার করতে এখানে ক্লিক করুন
+                    </a>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- 6. স্বাস্থ্য উপকারিতা -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-black mb-8 text-center text-gray-900 font-anek">স্বাস্থ্য উপকারিতা
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-4 rounded-2xl text-center shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-shield-virus text-amber-600"></i>
+                    </div>
+                    <p class="font-bold text-sm">রোগ প্রতিরোধ ক্ষমতা বাড়ায়</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl text-center shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-bolt text-amber-600"></i>
+                    </div>
+                    <p class="font-bold text-sm">তাতক্ষণিক শক্তি যোগায়</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl text-center shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-brain text-amber-600"></i>
+                    </div>
+                    <p class="font-bold text-sm">স্মৃতিশক্তি উন্নত করে</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl text-center shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-heartbeat text-amber-600"></i>
+                    </div>
+                    <p class="font-bold text-sm">হজম শক্তি বাড়াতে সাহায্য করে</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. যারা আমাদের হানি নাট খেয়েছেন তারা কী বলছেন? -->
+        {% if reviews %}
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-black mb-10 text-center text-gray-900 font-anek">ক্রেতাদের মতামত</h2>
+            <div class="reviews-container">
+                {% for review in reviews %}
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative pt-12 review-card">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2">
+                        <div
+                            class="w-16 h-16 rounded-full border-4 border-white shadow-md overflow-hidden bg-amber-100">
+                            {% if review.profile_pic_path %}
+                            <img src="{{ url_for('static', filename=review.profile_pic_path) }}"
+                                class="w-full h-full object-cover">
+                            {% else %}
+                            <i class="fas fa-user text-amber-400 text-3xl flex items-center justify-center h-full"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="flex justify-center mb-3 text-amber-400">
+                        {% for i in range(review.rating|int) %}
+                        <i class="fas fa-star text-sm"></i>
+                        {% endfor %}
+                    </div>
+                    <p class="text-gray-600 text-center italic mb-4">"{{ review.comment }}"</p>
+                    <div class="text-center font-bold text-gray-900">— {{ review.customer_name }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- 8. Pricing Tiles -->
+        <section class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-black mb-8 text-center text-gray-900 font-anek">সেরা অফারটি বেছে নিন
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {% set weight = settings.product_weight|int if settings.product_weight else 500 %}
+                <!-- P1 -->
+                <div class="pricing-card bg-white p-6 rounded-2xl shadow-md border border-gray-100 text-center flex flex-col cursor-pointer hover:border-amber-500"
+                    onclick="selectPackage(1, {{ settings.price }})">
+                    <h3 class="font-bold mb-2 text-gray-600">
+                        {% if weight >= 1000 %}
+                        {{ ((weight / 1000)|round(2))|bn_digits }} কেজি (১টি জার)
+                        {% else %}
+                        {{ weight|bn_digits }} গ্রাম (১টি জার)
+                        {% endif %}
+                    </h3>
+                    <div class="text-2xl font-black text-gray-900 mb-4 font-anek">৳{{ settings.price|bn_digits }}</div>
+                    <p class="text-xs text-gray-400 mt-auto">ফ্রি হোম ডেলিভারি</p>
+                </div>
+
+                <!-- P2 (Best Seller) -->
+                <div class="pricing-card best-seller bg-white p-6 rounded-2xl shadow-xl border-amber-500 text-center flex flex-col relative md:scale-105 cursor-pointer"
+                    onclick="selectPackage(2, {{ settings.price * 2 - settings.discount_amount }})">
+                    <div class="best-seller-badge shadow-lg">Popular</div>
+                    <h3 class="font-bold mb-2 text-gray-900">
+                        {% if weight * 2 >= 1000 %}
+                        {{ ((weight * 2 / 1000)|round(2))|bn_digits }} কেজি (২টি জার)
+                        {% else %}
+                        {{ (weight * 2)|bn_digits }} গ্রাম (২টি জার)
+                        {% endif %}
+                    </h3>
+                    <div class="text-3xl font-black text-amber-600 mb-4 font-anek">৳{{ (settings.price * 2 -
+                        settings.discount_amount)|bn_digits }}</div>
+                    <p class="text-xs text-green-600 font-bold mt-auto">{{ settings.discount_amount|bn_digits }} টাকা
+                        ছাড়!</p>
+                </div>
+
+                <!-- P3 (Mega Saver) -->
+                <div class="pricing-card bg-amber-600 p-6 rounded-2xl shadow-xl text-center flex flex-col cursor-pointer text-white"
+                    onclick="selectPackage(3, {{ settings.price * 3 - (settings.discount_amount_3 or 200) }})">
+                    <h3 class="font-bold mb-2">
+                        {% if weight * 3 >= 1000 %}
+                        {{ ((weight * 3 / 1000)|round(2))|bn_digits }} কেজি (৩টি জার)
+                        {% else %}
+                        {{ (weight * 3)|bn_digits }} গ্রাম (৩টি জার)
+                        {% endif %}
+                    </h3>
+                    <div class="text-3xl font-black mb-4 font-anek">৳{{ (settings.price * 3 -
+                        (settings.discount_amount_3 or 200))|bn_digits }}</div>
+                    <p class="text-xs text-amber-100 font-bold mt-auto">{{ (settings.discount_amount_3 or 200)|bn_digits
+                        }} টাকা বড়
+                        ছাড়!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Form -->
+        <section id="checkout"
+            class="py-12 bg-white rounded-3xl shadow-xl border border-gray-100 mb-20 max-w-lg mx-auto">
+            <div class="px-6">
+                <h2 class="text-xl font-black text-center mb-6 text-gray-900 underline decoration-amber-500 font-anek">
+                    অর্ডার ফর্মটি পূরণ করুন</h2>
+                <form action="/order" method="POST" class="space-y-4">
+                    {% if settings.image_path %}
+                    <div class="flex justify-center mb-6">
+                        <img src="{{ url_for('static', filename=settings.image_path) }}" alt="Product"
+                            class="w-32 h-32 object-cover rounded-2xl shadow-md border-2 border-amber-100" width="128"
+                            height="128" loading="lazy">
+                    </div>
+                    {% endif %}
+                    <input type="text" name="full_name" required placeholder="আপনার পূর্ণ নাম"
+                        class="w-full px-5 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <input type="tel" name="mobile" required placeholder="মোবাইল নম্বর"
+                        class="w-full px-5 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <textarea name="address" required placeholder="আপনার ঠিকানা"
+                        class="w-full px-5 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-amber-500 h-24"></textarea>
+
+                    <input type="number" name="quantity" id="quantity-input" value="1" hidden>
+
+                    <div class="bg-amber-50 p-4 rounded-xl flex justify-between items-center mb-4">
+                        <span class="font-bold text-gray-700">মোট:</span>
+                        <span class="text-2xl font-black text-amber-600 font-anek">৳<span id="total-display">{{
+                                settings.price|bn_digits }}</span></span>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-amber-600 text-white py-4 rounded-xl text-xl font-black shadow-xl">অর্ডার
+                        নিশ্চিত করুন</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Beautiful Footer Restored -->
+    <footer class="bg-gray-950 text-white py-16 border-t border-amber-900/20 mt-20">
+        <div class="container mx-auto px-4">
+            <!-- Icon Features -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 text-center">
+                <div class="flex flex-col items-center">
+                    <div
+                        class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-4 border border-white/10 shadow-lg">
+                        <i class="fas fa-truck text-amber-500 text-2xl"></i>
+                    </div>
+                    <h5 class="font-bold text-lg mb-2 font-anek">সারা বাংলাদেশে দ্রুত ডেলিভারি</h5>
+                    <p class="text-gray-400 text-sm">৪৮-৭২ ঘন্টার মধ্যে নিশ্চিত ডেলিভারি</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div
+                        class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-4 border border-white/10 shadow-lg">
+                        <i class="fas fa-wallet text-amber-500 text-2xl"></i>
+                    </div>
+                    <h5 class="font-bold text-lg mb-2 font-anek">ক্যাশ অন ডেলিভারি (COD)</h5>
+                    <p class="text-gray-400 text-sm">হাতে পেয়ে চেক করে পেমেন্ট করার সুবিধা</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div
+                        class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-4 border border-white/10 shadow-lg">
+                        <i class="fas fa-history text-amber-500 text-2xl"></i>
+                    </div>
+                    <h5 class="font-bold text-lg mb-2 font-anek">সহজ রিটার্ন পলিসি</h5>
+                    <p class="text-gray-400 text-sm">পছন্দ না হলে সহজ রিটার্ন সুবিধা</p>
+                </div>
+            </div>
+
+            <div class="text-center pt-8 border-t border-white/10">
+                <p class="text-gray-500 text-xs font-anek">&copy; ২০২৪ {{ settings.shop_name }}। সর্বস্বত্ব সংরক্ষিত।
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="sticky-btn">
+        <a href="#checkout"
+            class="block w-full text-center bg-amber-600 text-white py-4 rounded-xl font-black text-xl shadow-2xl">এখনই
+            অর্ডার করুন</a>
+    </div>
+
+    <script>
+        function toBengaliDigits(n) {
+            const eng = "0123456789";
+            const bn = "০১২৩৪৫৬৭৮৯";
+            return n.toString().split('').map(d => eng.indexOf(d) !== -1 ? bn[eng.indexOf(d)] : d).join('');
+        }
+
+        function selectPackage(qty, price) {
+            document.getElementById('total-display').innerText = toBengaliDigits(price);
+            document.getElementById('quantity-input').value = qty;
+            document.getElementById('checkout').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'view_vsl_page',
+                'product_name': '{{ settings.product_name }}'
+            });
+        });
+    </script>
+</body>
+
+</html>

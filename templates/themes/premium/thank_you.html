@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অর্ডার সফল হয়েছে - ধন্যবাদ!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #FDFBF7;
+        }
+
+        .premium-gradient {
+            background: linear-gradient(135deg, #064E3B 0%, #065F46 100%);
+        }
+
+        .text-gold {
+            color: #D4AF37;
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div
+        class="max-w-2xl w-full bg-white rounded-[40px] shadow-2xl overflow-hidden border border-emerald-50 text-center p-8 md:p-16">
+        <div class="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
+            <i class="fas fa-check text-4xl text-emerald-600"></i>
+        </div>
+
+        <h1 class="text-3xl md:text-5xl font-black text-emerald-900 mb-6">ধন্যবাদ!</h1>
+        <p class="text-xl text-gray-600 mb-10 leading-relaxed">
+            আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে। আমাদের প্রতিনিধি শীঘ্রই আপনাকে কল করে অর্ডারটি কনফার্ম করবেন।
+        </p>
+
+        {% if order %}
+        <div class="bg-emerald-50 rounded-3xl p-6 md:p-8 mb-10 border border-emerald-100 text-left">
+            <h3 class="text-xl font-bold text-emerald-900 mb-6 border-b border-emerald-200 pb-2">অর্ডার সামারি</h3>
+            <div class="space-y-4">
+                <div class="flex justify-between">
+                    <span class="text-gray-500 font-medium">ইনভয়েস আইডি:</span>
+                    <span class="text-emerald-900 font-bold">#ORD-{{ order.id }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500 font-medium">পণ্য:</span>
+                    <span class="text-emerald-900 font-bold">{{ settings.product_name }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500 font-medium">পরিমাণ:</span>
+                    <span class="text-emerald-900 font-bold">{{ order.quantity }} টি</span>
+                </div>
+                <div class="flex justify-between pt-4 border-t border-emerald-200">
+                    <span class="text-emerald-900 font-bold text-lg">মোট মূল্য:</span>
+                    <span class="text-emerald-900 font-black text-2xl text-gold">৳{{ order.total_price }}</span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/"
+                class="px-10 py-4 bg-emerald-900 text-white rounded-2xl font-bold hover:bg-emerald-800 transition shadow-lg">
+                হোম পেজে ফিরুন
+            </a>
+            <a href="tel:{{ settings.support_phone }}"
+                class="px-10 py-4 border-2 border-emerald-900 text-emerald-900 rounded-2xl font-bold hover:bg-emerald-50 transition">
+                সহায়তার জন্য কল করুন
+            </a>
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-gray-100 italic text-sm text-gray-400">
+            &copy; ২০২৪ {{ settings.shop_name }}। আমাদের সাথে থাকার জন্য ধন্যবাদ।
+        </div>
+    </div>
+</body>
+
+</html>

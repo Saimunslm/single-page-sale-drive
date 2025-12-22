@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অর্ডার সফল হয়েছে - অর্গানিক দোকান</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    {% if settings.gtm_id %}
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', '{{ settings.gtm_id }}');</script>
+    <!-- End Google Tag Manager -->
+    {% endif %}
+
+    {% if settings.pixel_id %}
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '{{ settings.pixel_id }}');
+        fbq('track', 'PageView');
+
+        {% if order %}
+        fbq('track', 'Purchase', {
+            value: {{ order.total_price }},
+            currency: 'BDT',
+            content_name: '{{ settings.product_name }}',
+            content_ids: ['{{ order.id }}'],
+            content_type: 'product',
+            num_items: {{ order.quantity }}
+    });
+        {% endif %}
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id={{ settings.pixel_id }}&ev=PageView&noscript=1" /></noscript>
+    <!-- End Facebook Pixel Code -->
+    {% endif %}
+
+    {% if order and settings.gtm_id %}
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event': 'purchase',
+            'ecommerce': {
+                'transaction_id': '{{ order.id }}',
+                'affiliation': 'Organic Dokan',
+                'value': {{ order.total_price }},
+            'currency': 'BDT',
+            'items': [{
+                'item_name': '{{ settings.product_name }}',
+                'item_id': 'PN-{{ order.id }}',
+                'price': {{ settings.price }},
+            'quantity': {{ order.quantity }}
+            }]
+        }
+    });
+    </script>
+    {% endif %}
+
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 h-screen flex items-center justify-center p-4">
+    {% if settings.gtm_id %}
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ settings.gtm_id }}" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    {% endif %}
+
+    <div class="bg-white p-10 lg:p-16 rounded-3xl shadow-2xl w-full max-w-2xl text-center">
+        <div
+            class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8 text-5xl text-green-500 animate-bounce">
+            <i class="fas fa-check"></i>
+        </div>
+        <h1 class="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6">ধন্যবাদ, <span class="text-amber-600">{{
+                order.full_name if order else 'কাস্টমার' }}</span>!</h1>
+        <p class="text-xl text-gray-700 mb-10 leading-relaxed">
+            আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে। আমাদের প্রতিনিধি শীঘ্রই আপনাকে ফোন করে অর্ডারটি কনফার্ম করবেন।
+        </p>
+        <div class="space-y-4">
+            <a href="/"
+                class="block w-full bg-amber-600 hover:bg-amber-700 text-white py-4 rounded-xl font-bold text-lg transition duration-300">আরও
+                শপিং করুন</a>
+            <p class="text-gray-500">কোনো প্রয়োজনে কল করুন: <span class="font-bold">01XXXXXXXXX</span></p>
+        </div>
+    </div>
+
+</body>
+
+</html>

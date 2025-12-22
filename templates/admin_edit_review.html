@@ -1,0 +1,115 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Edit Review{% endblock %}
+{% block header_title %}Modify Review Content{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto pb-20">
+    <div class="mui-card p-10">
+        <div class="flex items-center justify-between mb-10">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600">
+                    <i class="fas fa-edit text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-black text-gray-800 tracking-tight">Edit Feedback</h3>
+                    <p class="text-xs text-gray-400 font-bold uppercase tracking-wider">Refine existing social proof</p>
+                </div>
+            </div>
+            <a href="{{ url_for('admin.reviews') }}"
+                class="flex items-center gap-2 text-xs font-black text-indigo-600 uppercase tracking-widest hover:text-indigo-800 transition">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-8">
+            {{ form.hidden_tag() }}
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-3 ml-1">Customer
+                        Name</label>
+                    {{ form.customer_name(class="w-full mui-input font-bold text-gray-700") }}
+                </div>
+                <div>
+                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-3 ml-1">Star
+                        Rating (1-5)</label>
+                    <div class="relative">
+                        {{ form.rating(class="w-full mui-input font-black text-amber-500 appearance-none",
+                        type="number", min="1", max="5") }}
+                        <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-amber-400">
+                            <i class="fas fa-star text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label
+                    class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-3 ml-1">Commentary</label>
+                {{ form.comment(class="w-full mui-input font-medium text-gray-700 h-32 py-4") }}
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 pt-8 border-t border-gray-50">
+                <!-- Profile Pic Section -->
+                <div>
+                    <label class="block text-xs font-black text-indigo-600 uppercase tracking-widest mb-4">User
+                        Avatar</label>
+                    <div class="flex items-center gap-6 mb-6">
+                        {% if review.profile_pic_path %}
+                        <div
+                            class="w-20 h-20 rounded-2xl overflow-hidden border-4 border-white shadow-md ring-1 ring-gray-100 shrink-0">
+                            <img src="{{ url_for('static', filename=review.profile_pic_path) }}"
+                                class="w-full h-full object-cover">
+                        </div>
+                        {% else %}
+                        <div
+                            class="w-20 h-20 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-300 text-3xl font-black border-4 border-white shadow-sm shrink-0">
+                            {{ review.customer_name[0]|upper if review.customer_name else '?' }}
+                        </div>
+                        {% endif %}
+                        <div class="flex-grow">
+                            {{ form.profile_pic(class="block w-full text-[10px] text-gray-400 file:mr-4 file:py-2
+                            file:px-4 file:rounded-xl file:border-0 file:text-[10px] file:font-black file:uppercase
+                            file:bg-indigo-600 file:text-white cursor-pointer") }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Photo Section -->
+                <div>
+                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-4">Review
+                        Media</label>
+                    <div class="flex items-center gap-6 mb-6">
+                        {% if review.image_path %}
+                        <div
+                            class="w-20 h-20 rounded-2xl overflow-hidden border-4 border-white shadow-md ring-1 ring-gray-100 shrink-0">
+                            <img src="{{ url_for('static', filename=review.image_path) }}"
+                                class="w-full h-full object-cover">
+                        </div>
+                        {% else %}
+                        <div
+                            class="w-20 h-20 rounded-2xl bg-gray-50 flex items-center justify-center text-gray-300 text-xl border-4 border-white shadow-sm shrink-0">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        {% endif %}
+                        <div class="flex-grow">
+                            {{ form.image(class="block w-full text-[10px] text-gray-400 file:mr-4 file:py-2 file:px-4
+                            file:rounded-xl file:border-0 file:text-[10px] file:font-black file:uppercase
+                            file:bg-gray-800 file:text-white cursor-pointer") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-6">
+                <button type="submit"
+                    class="mui-btn-primary w-full py-4 text-sm shadow-indigo-100 flex items-center justify-center gap-3">
+                    <i class="fas fa-check-double"></i>
+                    Save Review Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

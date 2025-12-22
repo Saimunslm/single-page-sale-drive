@@ -1,0 +1,1685 @@
+[2025-12-19 16:11:27,142] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:11:30,796] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:12:07,365] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:12:10,253] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:12:11,537] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:12:12,097] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:12:12,474] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:12:12,690] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:12:49,697] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:12:50,394] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:12:59,686] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:13:21,782] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "/home/newroyal/nrb/passenger_wsgi.py", line 8, in <module>
+    from app import app as application
+  File "/home/newroyal/nrb/app.py", line 485
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+Traceback (most recent call last):
+  File "/home/newroyal/nrb/passenger_wsgi.py", line 8, in <module>
+    from app import app as application
+  File "/home/newroyal/nrb/app.py", line 485
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+Traceback (most recent call last):
+  File "/home/newroyal/nrb/passenger_wsgi.py", line 8, in <module>
+    from app import app as application
+  File "/home/newroyal/nrb/app.py", line 485
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[UID:1458][3881541] Child process with pid: 3881635 was killed by signal: 15, core dump: 0
+[UID:1458][3881541] Child process with pid: 3881636 was killed by signal: 15, core dump: 0
+Traceback (most recent call last):
+  File "/home/newroyal/nrb/passenger_wsgi.py", line 8, in <module>
+    from app import app as application
+  File "/home/newroyal/nrb/app.py", line 485
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+Traceback (most recent call last):
+  File "/home/newroyal/nrb/passenger_wsgi.py", line 8, in <module>
+    from app import app as application
+  File "/home/newroyal/nrb/app.py", line 485
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[UID:1458][3882347] Child process with pid: 3882360 was killed by signal: 15, core dump: 0
+Traceback (most recent call last):
+  File "/home/newroyal/nrb/passenger_wsgi.py", line 8, in <module>
+    from app import app as application
+  File "/home/newroyal/nrb/app.py", line 485
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[UID:1458][3882347] Child process with pid: 3882375 was killed by signal: 15, core dump: 0
+[2025-12-19 16:15:40,330] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:16:03,233] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:17:40,766] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:17:41,962] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:17:42,136] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:17:42,459] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:17:42,713] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:17:42,987] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:17:43,164] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-12-19 16:17:43,526] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: product_setting
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/nrb/app.py", line 91, in index
+    settings = ProductSetting.query.first()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/newroyal/virtualenv/nrb/3.8/lib64/python3.8/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: product_setting
+[SQL: SELECT product_setting.id AS product_setting_id, product_setting.product_name AS product_setting_product_name, product_setting.product_description AS product_setting_product_description, product_setting.price AS product_setting_price, product_setting.old_price AS product_setting_old_price, product_setting.image_path AS product_setting_image_path, product_setting.logo_path AS product_setting_logo_path, product_setting.gtm_id AS product_setting_gtm_id, product_setting.pixel_id AS product_setting_pixel_id, product_setting.shop_name AS product_setting_shop_name, product_setting.support_phone AS product_setting_support_phone, product_setting.whatsapp_number AS product_setting_whatsapp_number, product_setting.facebook_url AS product_setting_facebook_url, product_setting.steadfast_api_key AS product_setting_steadfast_api_key, product_setting.steadfast_secret_key AS product_setting_steadfast_secret_key, product_setting.updated_at AS product_setting_updated_at 
+FROM product_setting
+ LIMIT ? OFFSET ?]
+[parameters: (1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+OSError: LSAPI: Socket read/write error
+[ERROR] [UID:1458][167013] wsgiAppHandler pApp->start_response() return NULL.
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/home/newroyal/nrb/routes/admin.py", line 44, in admin_dashboard
+    return render_template('admin_dashboard.html', orders=orders, stats=stats)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/newroyal/nrb/templates/admin_dashboard.html", line 1, in top-level template code
+    {% extends "admin_base.html" %}
+  File "/home/newroyal/nrb/templates/admin_base.html", line 137, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/newroyal/nrb/templates/admin_dashboard.html", line 110, in block 'content'
+    <a href="{{ url_for('admin_send_steadfast', order_id=order.id) }}"
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'admin_send_steadfast' with values ['order_id']. Did you mean 'admin.admin_send_steadfast' instead?
+[ERROR] [UID:1458][167013] wsgiAppHandler pApp->start_response() return NULL.
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/home/newroyal/nrb/routes/admin.py", line 44, in admin_dashboard
+    return render_template('admin_dashboard.html', orders=orders, stats=stats)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/newroyal/nrb/templates/admin_dashboard.html", line 1, in top-level template code
+    {% extends "admin_base.html" %}
+  File "/home/newroyal/nrb/templates/admin_base.html", line 137, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/newroyal/nrb/templates/admin_dashboard.html", line 110, in block 'content'
+    <a href="{{ url_for('admin_send_steadfast', order_id=order.id) }}"
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'admin_send_steadfast' with values ['order_id']. Did you mean 'admin.admin_send_steadfast' instead?
+[ERROR] [UID:1458][337490] wsgiAppHandler pApp->start_response() return NULL.
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/home/newroyal/nrb/routes/admin.py", line 44, in admin_dashboard
+    return render_template('admin_dashboard.html', orders=orders, stats=stats)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/newroyal/nrb/templates/admin_dashboard.html", line 1, in top-level template code
+    {% extends "admin_base.html" %}
+  File "/home/newroyal/nrb/templates/admin_base.html", line 137, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/newroyal/nrb/templates/admin_dashboard.html", line 110, in block 'content'
+    <a href="{{ url_for('admin_send_steadfast', order_id=order.id) }}"
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'admin_send_steadfast' with values ['order_id']. Did you mean 'admin.admin_send_steadfast' instead?
+[ERROR] [UID:1458][337490] wsgiAppHandler pApp->start_response() return NULL.
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/home/newroyal/nrb/routes/admin.py", line 44, in admin_dashboard
+    return render_template('admin_dashboard.html', orders=orders, stats=stats)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/newroyal/nrb/templates/admin_dashboard.html", line 1, in top-level template code
+    {% extends "admin_base.html" %}
+  File "/home/newroyal/nrb/templates/admin_base.html", line 137, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/newroyal/nrb/templates/admin_dashboard.html", line 110, in block 'content'
+    <a href="{{ url_for('admin_send_steadfast', order_id=order.id) }}"
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'admin_send_steadfast' with values ['order_id']. Did you mean 'admin.admin_send_steadfast' instead?
+[ERROR] [UID:1458][337490] wsgiAppHandler pApp->start_response() return NULL.
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/home/newroyal/nrb/routes/admin.py", line 44, in admin_dashboard
+    return render_template('admin_dashboard.html', orders=orders, stats=stats)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/newroyal/nrb/templates/admin_dashboard.html", line 1, in top-level template code
+    {% extends "admin_base.html" %}
+  File "/home/newroyal/nrb/templates/admin_base.html", line 137, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/newroyal/nrb/templates/admin_dashboard.html", line 110, in block 'content'
+    <a href="{{ url_for('admin_send_steadfast', order_id=order.id) }}"
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'admin_send_steadfast' with values ['order_id']. Did you mean 'admin.admin_send_steadfast' instead?
+[ERROR] [UID:1458][371139] wsgiAppHandler pApp->start_response() return NULL.
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/home/newroyal/nrb/routes/admin.py", line 137, in admin_reviews
+    return render_template('admin_reviews.html', reviews=reviews, form=form)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/newroyal/nrb/templates/admin_reviews.html", line 1, in top-level template code
+    {% extends "admin_base.html" %}
+  File "/home/newroyal/nrb/templates/admin_base.html", line 137, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/newroyal/nrb/templates/admin_reviews.html", line 96, in block 'content'
+    <a href="{{ url_for('edit_review', review_id=review.id) }}"
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_review' with values ['review_id']. Did you mean 'admin.edit_review' instead?
+[ERROR] [UID:1458][371139] wsgiAppHandler pApp->start_response() return NULL.
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/home/newroyal/nrb/routes/admin.py", line 137, in admin_reviews
+    return render_template('admin_reviews.html', reviews=reviews, form=form)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/newroyal/nrb/templates/admin_reviews.html", line 1, in top-level template code
+    {% extends "admin_base.html" %}
+  File "/home/newroyal/nrb/templates/admin_base.html", line 137, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/newroyal/nrb/templates/admin_reviews.html", line 96, in block 'content'
+    <a href="{{ url_for('edit_review', review_id=review.id) }}"
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_review' with values ['review_id']. Did you mean 'admin.edit_review' instead?
+[ERROR] [UID:1458][337490] wsgiAppHandler pApp->start_response() return NULL.
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/home/newroyal/nrb/routes/admin.py", line 137, in admin_reviews
+    return render_template('admin_reviews.html', reviews=reviews, form=form)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/newroyal/nrb/templates/admin_reviews.html", line 1, in top-level template code
+    {% extends "admin_base.html" %}
+  File "/home/newroyal/nrb/templates/admin_base.html", line 137, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/newroyal/nrb/templates/admin_reviews.html", line 96, in block 'content'
+    <a href="{{ url_for('edit_review', review_id=review.id) }}"
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_review' with values ['review_id']. Did you mean 'admin.edit_review' instead?
+[ERROR] [UID:1458][546632] wsgiAppHandler pApp->start_response() return NULL.
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/home/newroyal/nrb/routes/admin.py", line 137, in admin_reviews
+    return render_template('admin_reviews.html', reviews=reviews, form=form)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/newroyal/nrb/templates/admin_reviews.html", line 1, in top-level template code
+    {% extends "admin_base.html" %}
+  File "/home/newroyal/nrb/templates/admin_base.html", line 137, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/newroyal/nrb/templates/admin_reviews.html", line 96, in block 'content'
+    <a href="{{ url_for('edit_review', review_id=review.id) }}"
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_review' with values ['review_id']. Did you mean 'admin.edit_review' instead?
+[ERROR] [UID:1458][546632] wsgiAppHandler pApp->start_response() return NULL.
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/home/newroyal/nrb/routes/admin.py", line 137, in admin_reviews
+    return render_template('admin_reviews.html', reviews=reviews, form=form)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/newroyal/nrb/templates/admin_reviews.html", line 1, in top-level template code
+    {% extends "admin_base.html" %}
+  File "/home/newroyal/nrb/templates/admin_base.html", line 137, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/newroyal/nrb/templates/admin_reviews.html", line 96, in block 'content'
+    <a href="{{ url_for('edit_review', review_id=review.id) }}"
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_review' with values ['review_id']. Did you mean 'admin.edit_review' instead?
+OSError: LSAPI: File error
+[ERROR] [UID:1458][1703909] wsgiAppHandler pApp->start_response() return NULL.
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/home/newroyal/nrb/routes/admin.py", line 137, in admin_reviews
+    return render_template('admin_reviews.html', reviews=reviews, form=form)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/newroyal/nrb/templates/admin_reviews.html", line 1, in top-level template code
+    {% extends "admin_base.html" %}
+  File "/home/newroyal/nrb/templates/admin_base.html", line 137, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/newroyal/nrb/templates/admin_reviews.html", line 96, in block 'content'
+    <a href="{{ url_for('edit_review', review_id=review.id) }}"
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_review' with values ['review_id']. Did you mean 'admin.edit_review' instead?
+OSError: LSAPI: Socket read/write error
+OSError: LSAPI: Socket read/write error
+[UID:1458][248040] Child process with pid: 2286862 was killed by signal: 15, core dump: 0
+[ERROR] [UID:1458][2305668] wsgiAppHandler pApp->start_response() return NULL.
+Traceback (most recent call last):
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1498, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1476, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+  File "/home/newroyal/nrb/routes/admin.py", line 137, in admin_reviews
+    return render_template('admin_reviews.html', reviews=reviews, form=form)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/newroyal/nrb/templates/admin_reviews.html", line 1, in top-level template code
+    {% extends "admin_base.html" %}
+  File "/home/newroyal/nrb/templates/admin_base.html", line 137, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/newroyal/nrb/templates/admin_reviews.html", line 96, in block 'content'
+    <a href="{{ url_for('edit_review', review_id=review.id) }}"
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+  File "/home/newroyal/virtualenv/nrb/3.8/lib/python3.8/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_review' with values ['review_id']. Did you mean 'admin.edit_review' instead?

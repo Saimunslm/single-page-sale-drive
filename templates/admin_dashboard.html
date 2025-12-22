@@ -1,0 +1,428 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block header_title %}Analytics & Orders{% endblock %}
+
+{% block content %}
+<!-- Welcome Banner -->
+<div class="mui-card p-8 mb-10 bg-gradient-to-r from-indigo-600 to-indigo-800 text-white relative overflow-hidden">
+    <div class="relative z-10">
+        <h1 class="text-3xl font-black mb-2">Welcome back, Admin!</h1>
+        <p class="text-indigo-100 opacity-90 max-w-md">Your organic shop is performing well today. Check out the latest
+            stats and orders below.</p>
+    </div>
+    <i
+        class="fas fa-rocket absolute -right-4 -bottom-4 text-9xl text-white opacity-5 transform -rotate-12 translate-y-4"></i>
+</div>
+
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-10">
+    <div class="mui-card p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Orders</p>
+                <p class="text-2xl font-black text-gray-800">{{ stats.total }}</p>
+            </div>
+            <div
+                class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm shadow-blue-50/50">
+                <i class="fas fa-shopping-cart text-xl"></i>
+            </div>
+        </div>
+    </div>
+    <div class="mui-card p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Pending</p>
+                <p class="text-2xl font-black text-amber-600">{{ stats.pending }}</p>
+            </div>
+            <div
+                class="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 shadow-sm shadow-amber-50/50">
+                <i class="fas fa-clock text-xl"></i>
+            </div>
+        </div>
+    </div>
+    <div class="mui-card p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Completed</p>
+                <p class="text-2xl font-black text-emerald-600">{{ stats.completed }}</p>
+            </div>
+            <div
+                class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm shadow-emerald-50/50">
+                <i class="fas fa-check-circle text-xl"></i>
+            </div>
+        </div>
+    </div>
+    <div class="mui-card p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Visitors</p>
+                <p class="text-2xl font-black text-purple-600">{{ traffic_stats.total_visitors }}</p>
+            </div>
+            <div
+                class="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-600 shadow-sm shadow-purple-50/50">
+                <i class="fas fa-chart-line text-xl"></i>
+            </div>
+        </div>
+    </div>
+    <div class="mui-card p-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Unique Users</p>
+                <p class="text-2xl font-black text-indigo-600">{{ traffic_stats.unique_visitors }}</p>
+            </div>
+            <div
+                class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 shadow-sm shadow-indigo-50/50">
+                <i class="fas fa-user-friends text-xl"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Section: Chart and Top Lists -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-10">
+    <!-- Chart Container -->
+    <div class="mui-card p-6 lg:p-8 xl:col-span-2">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+            <h3 class="font-bold text-gray-800 text-xl tracking-tight">Orders & Revenue Trends</h3>
+            <div class="flex p-1 bg-gray-50 rounded-xl">
+                <button class="chart-selector active px-4 py-1.5 rounded-lg text-xs font-bold transition-all"
+                    data-period="daily">Daily</button>
+                <button
+                    class="chart-selector px-4 py-1.5 rounded-lg text-xs font-bold text-gray-500 transition-all hover:bg-white"
+                    data-period="weekly">Week</button>
+                <button
+                    class="chart-selector px-4 py-1.5 rounded-lg text-xs font-bold text-gray-500 transition-all hover:bg-white"
+                    data-period="monthly">Month</button>
+            </div>
+        </div>
+        <div class="h-80 w-full relative">
+            <canvas id="ordersChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Top Visited Pages -->
+    <div class="mui-card p-6 lg:p-8">
+        <h3 class="font-bold text-gray-800 text-xl tracking-tight mb-6">Top Visited Pages</h3>
+        <div class="space-y-4">
+            {% for path, count in traffic_stats.top_paths %}
+            <div
+                class="group flex items-center bg-gray-50 p-4 rounded-2xl transition hover:bg-indigo-50/50 hover:scale-[1.02]">
+                <div
+                    class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-indigo-600 mr-4 shadow-sm group-hover:shadow-indigo-100">
+                    <i class="fas fa-file-alt text-lg"></i>
+                </div>
+                <div class="flex-grow min-w-0">
+                    <p class="text-sm font-bold text-gray-700 truncate mb-0.5">{{ path or '/' }}</p>
+                    <div class="w-full bg-gray-200 h-1.5 rounded-full overflow-hidden mt-2">
+                        <div class="bg-indigo-500 h-full rounded-full"
+                            style="width: {{ (count / traffic_stats.total_visitors * 100)|round|int }}%"></div>
+                    </div>
+                </div>
+                <span class="text-sm font-black text-indigo-700 ml-4 whitespace-nowrap">{{ count }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Orders Table -->
+<div class="mui-card overflow-hidden mb-10">
+    <div
+        class="p-6 lg:p-8 border-b border-gray-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white">
+        <div>
+            <h3 class="font-bold text-gray-800 text-xl tracking-tight">Recent Commissions</h3>
+            <p class="text-xs text-gray-400 mt-1 font-medium italic">Overview of the last transactions from landing
+                pages</p>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="text-xs font-bold text-gray-400 hidden lg:block uppercase tracking-widest">Toggle Mobile
+                View</span>
+            <div class="w-1 h-8 bg-gray-100 hidden lg:block"></div>
+            <i class="fas fa-search text-gray-400 ml-2"></i>
+        </div>
+    </div>
+
+    <div class="overflow-x-auto scrollbar-hide">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-gray-50/50 border-b border-gray-100">
+                    <th class="px-6 py-5 text-[11px] font-black text-gray-400 uppercase tracking-widest">Customer Info
+                    </th>
+                    <th class="px-6 py-5 text-[11px] font-black text-gray-400 uppercase tracking-widest">Shipping
+                        Details</th>
+                    <th class="px-6 py-5 text-[11px] font-black text-gray-400 uppercase tracking-widest">Items</th>
+                    <th class="px-6 py-5 text-[11px] font-black text-gray-400 uppercase tracking-widest">Transaction
+                    </th>
+                    <th class="px-6 py-5 text-[11px] font-black text-gray-400 uppercase tracking-widest">Status</th>
+                    <th class="px-6 py-5 text-[11px] font-black text-gray-400 uppercase tracking-widest">Courier Status
+                    </th>
+                    <th class="px-6 py-5 text-[11px] font-black text-gray-400 uppercase tracking-widest text-right">
+                        Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+                {% for order in orders %}
+                <tr class="hover:bg-indigo-50/10 transition-colors">
+                    <td class="px-6 py-5">
+                        <div class="flex flex-col">
+                            <span class="font-bold text-gray-800 leading-tight mb-1">{{ order.full_name }}</span>
+                            <span class="text-xs font-semibold text-indigo-500/80">{{ order.mobile_number }}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-5">
+                        <p class="text-sm font-medium text-gray-500 max-w-[180px] break-words line-clamp-2"
+                            title="{{ order.shipping_address }}">
+                            {{ order.shipping_address }}
+                        </p>
+                    </td>
+                    <td class="px-6 py-5">
+                        <div class="flex items-center">
+                            <span
+                                class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center font-black text-gray-700 text-xs">
+                                {{ order.quantity }}
+                            </span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-5">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-black text-emerald-600">৳{{ order.total_price }}</span>
+                            <span class="text-[10px] text-gray-400 font-bold uppercase">{{ order.timestamp | time_to_bd
+                                }}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-5">
+                        <span
+                            class="px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm border {% if order.status == 'Completed' %}bg-emerald-50 text-emerald-600 border-emerald-100{% else %}bg-amber-50 text-amber-600 border-amber-100{% endif %}">
+                            {{ order.status }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-5">
+                        {% if order.steadfast_consignment_id %}
+                        <div class="flex flex-col gap-1.5">
+                            <span class="text-[10px] font-black text-indigo-600 tracking-tighter">#{{
+                                order.steadfast_consignment_id }}</span>
+                            <div class="flex items-center justify-between">
+                                <span
+                                    class="text-[9px] uppercase font-black px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-600">{{
+                                    order.steadfast_status or 'Sent' }}</span>
+                                <a href="{{ url_for('admin.admin_check_steadfast_status', order_id=order.id) }}"
+                                    class="p-1 px-2 rounded-lg bg-white border border-indigo-100 text-indigo-500 hover:bg-indigo-500 hover:text-white transition shadow-sm">
+                                    <i class="fas fa-sync-alt text-[9px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <a href="{{ url_for('admin.admin_send_steadfast', order_id=order.id) }}"
+                            class="inline-flex items-center px-4 py-1.5 bg-gradient-to-r from-indigo-500 to-indigo-700 text-white text-[10px] font-black uppercase tracking-widest rounded-lg hover:shadow-lg transition">
+                            <i class="fas fa-truck mr-1.5"></i> Deliver
+                        </a>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-5 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                            {% if order.status == 'Pending' %}
+                            <a href="{{ url_for('admin.complete_order', order_id=order.id) }}"
+                                class="p-2 px-3 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white transition font-black text-xs">
+                                APPROVE
+                            </a>
+                            {% endif %}
+                            <a href="{{ url_for('admin.delete_order', order_id=order.id) }}"
+                                onclick="return confirm('Archive this order?')"
+                                class="p-2 rounded-lg bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition">
+                                <i class="fas fa-trash-alt text-xs"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" class="px-6 py-20 text-center">
+                        <div class="flex flex-col items-center opacity-30">
+                            <i class="fas fa-box-open text-6xl mb-4"></i>
+                            <span class="font-black uppercase tracking-widest text-sm">No Active Orders</span>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Traffic Charts Header -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+    <!-- Top Referrers -->
+    <div class="mui-card p-6 lg:p-8">
+        <h3 class="font-bold text-gray-800 text-xl tracking-tight mb-6">Traffic Sources</h3>
+        <div class="space-y-4">
+            {% for referrer, count in traffic_stats.top_referrers %}
+            <div
+                class="flex justify-between items-center p-4 bg-white rounded-2xl border border-gray-50 shadow-sm transition hover:border-indigo-100">
+                <div class="flex items-center min-w-0">
+                    <div class="w-8 h-8 rounded-lg bg-pink-50 flex items-center justify-center text-pink-500 mr-3">
+                        <i class="fas fa-link text-sm"></i>
+                    </div>
+                    <span class="text-sm font-bold text-gray-700 truncate max-w-[240px]">{{ referrer or 'Direct Visit'
+                        }}</span>
+                </div>
+                <span class="text-sm font-black text-pink-600 bg-pink-50 px-3 py-1 rounded-full">{{ count }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Traffic Trend Chart -->
+    <div class="mui-card p-6 lg:p-8">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+            <h3 class="font-bold text-gray-800 text-xl tracking-tight">Visitor Trends</h3>
+            <div class="flex p-1 bg-gray-50 rounded-xl">
+                <button class="traffic-chart-selector active px-4 py-1.5 rounded-lg text-xs font-bold transition-all"
+                    data-period="daily">Daily</button>
+                <button
+                    class="traffic-chart-selector px-4 py-1.5 rounded-lg text-xs font-bold text-gray-500 transition-all hover:bg-white"
+                    data-period="weekly">Week</button>
+            </div>
+        </div>
+        <div class="h-64 w-full relative">
+            <canvas id="trafficChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    const chartData = {{ chart_data | tojson }};
+    const trafficChartData = {{ traffic_chart_data | tojson }};
+
+    let ordersChart;
+    let trafficChart;
+
+    Chart.defaults.font.family = "'Inter', sans-serif";
+    Chart.defaults.color = '#94a3b8';
+
+    function updateChart(period) {
+        const ctx = document.getElementById('ordersChart').getContext('2d');
+        if (ordersChart) ordersChart.destroy();
+
+        ordersChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: chartData[period].labels,
+                datasets: [{
+                    label: 'Orders',
+                    data: chartData[period].counts,
+                    borderColor: '#4f46e5',
+                    backgroundColor: 'transparent',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#4f46e5',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    fill: false,
+                    tension: 0.4
+                }, {
+                    label: 'Revenue',
+                    data: chartData[period].revenues,
+                    borderColor: '#10b981',
+                    backgroundColor: 'transparent',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#10b981',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    fill: false,
+                    tension: 0.4,
+                    yAxisID: 'y1'
+                }]
+            },
+            options: {
+                interaction: { intersect: false, mode: 'index' },
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { grid: { display: false }, beginAtZero: true },
+                    y1: {
+                        grid: { display: false },
+                        beginAtZero: true,
+                        position: 'right',
+                        ticks: { callback: value => '৳' + value }
+                    },
+                    x: { grid: { display: false } }
+                },
+                plugins: {
+                    legend: { position: 'top', align: 'end', labels: { boxWidth: 10, usePointStyle: true, font: { weight: 'bold' } } }
+                }
+            }
+        });
+    }
+
+    function updateTrafficChart(period) {
+        const ctx = document.getElementById('trafficChart').getContext('2d');
+        if (trafficChart) trafficChart.destroy();
+
+        trafficChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: trafficChartData[period].labels,
+                datasets: [{
+                    label: 'Visitors',
+                    data: trafficChartData[period].counts,
+                    backgroundColor: '#8b5cf6',
+                    borderRadius: 8,
+                    barThickness: 'flex'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { grid: { borderDash: [5, 5] }, beginAtZero: true },
+                    x: { grid: { display: false } }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.chart-selector').forEach(button => {
+            button.addEventListener('click', function () {
+                document.querySelectorAll('.chart-selector').forEach(b => {
+                    b.classList.remove('active', 'bg-white', 'shadow-sm');
+                    b.classList.add('text-gray-500');
+                });
+                this.classList.add('active', 'bg-white', 'shadow-sm');
+                this.classList.remove('text-gray-500');
+                updateChart(this.dataset.period);
+            });
+        });
+
+        document.querySelectorAll('.traffic-chart-selector').forEach(button => {
+            button.addEventListener('click', function () {
+                document.querySelectorAll('.traffic-chart-selector').forEach(b => {
+                    b.classList.remove('active', 'bg-white', 'shadow-sm');
+                    b.classList.add('text-gray-500');
+                });
+                this.classList.add('active', 'bg-white', 'shadow-sm');
+                this.classList.remove('text-gray-500');
+                updateTrafficChart(this.dataset.period);
+            });
+        });
+
+        updateChart('daily');
+        updateTrafficChart('daily');
+    });
+</script>
+<style>
+    .chart-selector.active,
+    .traffic-chart-selector.active {
+        background-color: white;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        color: #4f46e5 !important;
+    }
+</style>
+{% endblock %}

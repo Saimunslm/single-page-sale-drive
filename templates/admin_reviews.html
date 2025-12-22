@@ -1,0 +1,190 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Customer Reviews{% endblock %}
+{% block header_title %}Social Proof & Reviews{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-20">
+    <!-- Add Review Form -->
+    <div class="lg:col-span-4">
+        <div class="mui-card p-8 sticky top-28">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600">
+                    <i class="fas fa-plus text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-black text-gray-800 tracking-tight">Add Review</h3>
+                    <p class="text-xs text-gray-400 font-bold uppercase tracking-wider">Manual Entry</p>
+                </div>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                {{ form.hidden_tag() }}
+
+                <div>
+                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">Customer
+                        Name</label>
+                    {{ form.customer_name(class="w-full mui-input font-bold text-gray-700", placeholder="e.g. Rahat
+                    Khan") }}
+                </div>
+
+                <div>
+                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">Star
+                        Rating</label>
+                    <div class="relative">
+                        {{ form.rating(class="w-full mui-input font-black text-amber-500 appearance-none",
+                        type="number", min="1", max="5", value="5") }}
+                        <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-amber-400">
+                            <i class="fas fa-star text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">Review
+                        Content</label>
+                    {{ form.comment(class="w-full mui-input font-medium text-gray-700 h-32 py-4", placeholder="Write
+                    feedback details...") }}
+                </div>
+
+                <div class="mui-card bg-gray-50/50 p-4 border-2 border-dashed border-gray-100">
+                    <label class="block text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-3">User
+                        Profile Image</label>
+                    {{ form.profile_pic(class="block w-full text-[10px] text-gray-400 file:mr-4 file:py-2 file:px-4
+                    file:rounded-xl file:border-0 file:text-[10px] file:font-black file:uppercase file:bg-indigo-600
+                    file:text-white cursor-pointer") }}
+                </div>
+
+                <div class="mui-card bg-gray-50/50 p-4 border-2 border-dashed border-gray-100">
+                    <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-3">Review
+                        Screenshot</label>
+                    {{ form.image(class="block w-full text-[10px] text-gray-400 file:mr-4 file:py-2 file:px-4
+                    file:rounded-xl file:border-0 file:text-[10px] file:font-black file:uppercase file:bg-gray-800
+                    file:text-white cursor-pointer") }}
+                </div>
+
+                <button type="submit" class="mui-btn-primary w-full py-4 text-sm shadow-indigo-100">
+                    <i class="fas fa-cloud-upload-alt mr-2"></i> Publish Review
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Reviews List -->
+    <div class="lg:col-span-8">
+        <div class="mui-card overflow-hidden">
+            <div class="p-8 border-b border-gray-50 flex justify-between items-center bg-white">
+                <div>
+                    <h3 class="text-xl font-black text-gray-800 tracking-tight">Active Reviews</h3>
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Total: {{
+                        reviews|length }} Published</p>
+                </div>
+                <div class="flex -space-x-3 overflow-hidden">
+                    {% for r in reviews[:5] %}
+                    {% if r.profile_pic_path %}
+                    <img class="inline-block h-10 w-10 rounded-2xl ring-4 ring-white"
+                        src="{{ url_for('static', filename=r.profile_pic_path) }}" alt="">
+                    {% endif %}
+                    {% endfor %}
+                    {% if reviews|length > 5 %}
+                    <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-50 ring-4 ring-white">
+                        <span class="text-xs font-black text-indigo-600">+{{ reviews|length - 5 }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="divide-y divide-gray-50">
+                {% for review in reviews %}
+                <div class="p-8 hover:bg-indigo-50/10 transition-colors group">
+                    <div class="flex flex-col sm:flex-row justify-between items-start gap-6">
+                        <div class="flex gap-5 flex-grow">
+                            <!-- Profile Section -->
+                            <div class="relative shrink-0">
+                                {% if review.profile_pic_path %}
+                                <div
+                                    class="w-16 h-16 rounded-2xl overflow-hidden border-4 border-white shadow-md bg-indigo-50 transition group-hover:scale-110">
+                                    <img src="{{ url_for('static', filename=review.profile_pic_path) }}"
+                                        class="w-full h-full object-cover">
+                                </div>
+                                {% else %}
+                                <div
+                                    class="w-16 h-16 rounded-2xl flex items-center justify-center bg-indigo-100 text-indigo-600 text-xl font-black border-4 border-white shadow-md">
+                                    {{ review.customer_name[0]|upper if review.customer_name else '?' }}
+                                </div>
+                                {% endif %}
+                                <div
+                                    class="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-500 text-white rounded-lg flex items-center justify-center border-2 border-white shadow-sm">
+                                    <i class="fas fa-check text-[8px]"></i>
+                                </div>
+                            </div>
+
+                            <div class="flex-grow min-w-0">
+                                <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+                                    <h4 class="font-black text-gray-800 tracking-tight truncate">{{ review.customer_name
+                                        or 'Verified Customer' }}</h4>
+                                    {% if review.rating %}
+                                    <div class="flex text-amber-400 text-[10px] gap-0.5">
+                                        {% for i in range(review.rating) %}
+                                        <i class="fas fa-star"></i>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                {% if review.comment %}
+                                <p class="text-sm font-medium text-gray-500 leading-relaxed italic mb-4">"{{
+                                    review.comment }}"</p>
+                                {% endif %}
+
+                                {% if review.image_path %}
+                                <div
+                                    class="relative w-40 mt-4 mui-card overflow-hidden shadow-sm hover:shadow-lg transition-all group/img">
+                                    <img src="{{ url_for('static', filename=review.image_path) }}"
+                                        class="w-full h-auto cursor-zoom-in">
+                                    <div
+                                        class="absolute inset-0 bg-indigo-600/20 opacity-0 group-hover/img:opacity-100 transition-opacity">
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                                <div
+                                    class="mt-4 flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-gray-400">
+                                    <span class="flex items-center gap-1.5"><i class="far fa-calendar-alt"></i> {{
+                                        review.timestamp.strftime('%d %b, %Y') }}</span>
+                                    <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                                    <span class="text-indigo-500"><i class="fas fa-certificate mr-1"></i> Verified
+                                        Content</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions Section -->
+                        <div class="flex sm:flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <a href="{{ url_for('admin.edit_review', review_id=review.id) }}"
+                                class="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-indigo-400 hover:bg-indigo-600 hover:text-white transition">
+                                <i class="fas fa-pencil-alt text-sm"></i>
+                            </a>
+                            <a href="{{ url_for('admin.delete_review', review_id=review.id) }}"
+                                onclick="return confirm('Archive this review permanently?')"
+                                class="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-red-400 hover:bg-red-500 hover:text-white transition">
+                                <i class="fas fa-trash-alt text-sm"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="px-8 py-24 text-center">
+                    <div class="flex flex-col items-center opacity-30">
+                        <i class="fas fa-comment-slash text-6xl mb-4"></i>
+                        <span class="font-black uppercase tracking-[0.3em] text-sm italic">No Feedback Collected</span>
+                        <p class="text-xs mt-2 font-medium">Reviews will appear here once they are added manually or
+                            submitted by users.</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

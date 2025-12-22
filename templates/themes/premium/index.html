@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ settings.product_name }} - প্রিমিয়াম কালেকশন</title>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" as="style">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap&font-display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    </noscript>
+
+    {% if settings.gtm_id %}
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', '{{ settings.gtm_id }}');</script>
+    <!-- End Google Tag Manager -->
+    {% endif %}
+
+    {% if settings.pixel_id %}
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '{{ settings.pixel_id }}');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id={{ settings.pixel_id }}&ev=PageView&noscript=1" /></noscript>
+    <!-- End Facebook Pixel Code -->
+    {% endif %}
+
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #FDFBF7;
+        }
+
+        .premium-gradient {
+            background: linear-gradient(135deg, #064E3B 0%, #065F46 100%);
+        }
+
+        .text-gold {
+            color: #D4AF37;
+        }
+
+        .bg-gold {
+            background-color: #D4AF37;
+        }
+
+        .border-gold {
+            border-color: #D4AF37;
+        }
+
+        .cta-button {
+            background: linear-gradient(to right, #D4AF37, #F59E0B);
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .timer-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 3s infinite;
+        }
+    </style>
+    {% if settings.custom_head_script %}
+    {{ settings.custom_head_script|safe }}
+    {% endif %}
+</head>
+
+<body class="text-gray-800">
+    {% if settings.custom_body_script %}
+    {{ settings.custom_body_script|safe }}
+    {% endif %}
+
+    {% if settings.gtm_id %}
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ settings.gtm_id }}" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    {% endif %}
+
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                {% if settings.logo_path %}
+                <img src="{{ url_for('static', filename=settings.logo_path) }}" alt="{{ settings.shop_name }}"
+                    class="h-10 w-auto" width="160" height="40">
+                {% else %}
+                <div class="text-xl font-bold text-emerald-900">{{ settings.shop_name }}</div>
+                {% endif %}
+            </div>
+            <a href="#checkout" class="cta-button text-white px-5 py-2 rounded-full font-bold text-sm shadow-md">অর্ডার
+                করুন</a>
+        </div>
+    </header>
+
+    <!-- 1. Hero Section -->
+    <section class="premium-gradient text-white py-16 lg:py-28 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-gold opacity-10 blur-3xl rounded-full -mr-32 -mt-32"></div>
+        <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center relative z-10">
+            <div class="lg:w-1/2 text-center lg:text-left mb-12 lg:mb-0">
+                <h1 class="text-4xl lg:text-6xl font-extrabold leading-tight mb-6">
+                    প্রিমিয়াম হানি নাট - <span class="text-gold">স্বাস্থ্য ও স্বাদের</span> এক অনন্য মেলবন্ধন!
+                </h1>
+                <p class="text-lg lg:text-xl text-emerald-50/90 mb-10 max-w-xl mx-auto lg:mx-0">
+                    শরীরকে দিন প্রাকৃতিক শক্তি আর মনকে দিন তৃপ্তি। ১০০% খাঁটি মধু আর সেরা মানের বাদামের পুষ্টি এখন এক
+                    জারে।
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#checkout"
+                        class="cta-button text-white px-10 py-4 rounded-xl text-xl font-bold shadow-2xl animate-pulse-slow">
+                        অর্ডার করতে এখানে ক্লিক করুন
+                    </a>
+                </div>
+            </div>
+            <div class="lg:w-1/2 relative">
+                <div class="relative z-10">
+                    {% if '/' in settings.image_path %}
+                    <img src="{{ url_for('static', filename=settings.image_path) }}" alt="Product Image"
+                        class="w-full max-w-md mx-auto rounded-3xl shadow-2xl border-4 border-gold/20" width="600"
+                        height="600" style="aspect-ratio: 1/1;" fetchpriority="high">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='images/' + settings.image_path) }}" alt="Product Image"
+                        class="w-full max-w-md mx-auto rounded-3xl shadow-2xl border-4 border-gold/20" width="600"
+                        height="600" style="aspect-ratio: 1/1;" fetchpriority="high">
+                    {% endif %}
+                </div>
+                <div class="absolute -bottom-6 -left-6 bg-white py-4 px-6 rounded-2xl shadow-xl z-20 hidden md:block">
+                    <div class="flex items-center text-emerald-900 border-b border-gray-100 pb-2 mb-2">
+                        <i class="fas fa-star text-gold mr-1"></i>
+                        <i class="fas fa-star text-gold mr-1"></i>
+                        <i class="fas fa-star text-gold mr-1"></i>
+                        <i class="fas fa-star text-gold mr-1"></i>
+                        <i class="fas fa-star text-gold mr-1"></i>
+                        <span class="ml-2 font-bold">৫/৫ রেটিং</span>
+                    </div>
+                    <p class="text-xs text-gray-500 font-medium italic">"বেস্ট কোয়ালিটি হানি নাট!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Pain Points -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 text-center max-w-3xl">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-8 text-emerald-900">
+                বাজারের সাধারণ স্ন্যাকস কি আপনাকে ক্লান্ত করে দিচ্ছে?
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <div class="flex items-start text-left p-4 bg-red-50 rounded-xl border-l-4 border-red-500">
+                    <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                    <p class="text-gray-700">অতিরিক্ত চিনি ও কেমিক্যালযুক্ত খাবার আপনার স্বাস্থ্যের ক্ষতি করছে?</p>
+                </div>
+                <div class="flex items-start text-left p-4 bg-red-50 rounded-xl border-l-4 border-red-500">
+                    <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                    <p class="text-gray-700">বিকেলের নাস্তায় স্বাস্থ্যকর কিছু খুঁজে পাচ্ছেন না?</p>
+                </div>
+                <div
+                    class="flex items-start text-left p-4 bg-red-50 rounded-xl border-l-4 border-red-500 col-span-1 md:col-span-2">
+                    <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                    <p class="text-gray-700">বাচ্চাদের টিফিনে পুষ্টিকর খাবার নিয়ে চিন্তিত?</p>
+                </div>
+            </div>
+            <div class="bg-emerald-50 p-8 rounded-3xl border border-emerald-100 shadow-inner">
+                <p class="text-xl lg:text-2xl text-emerald-900 font-bold leading-relaxed">
+                    <span class="text-gold block mb-2">সমাধান:</span>
+                    আমাদের হানি নাট দিচ্ছে আপনাকে প্রাকৃতিক এনার্জি, যা কোনো কেমিক্যাল ছাড়াই আপনাকে রাখবে সজীব ও
+                    কর্মক্ষম।
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Why Us (Features) -->
+    <section class="py-20 bg-[#FDFBF7]">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl lg:text-4xl font-bold text-center mb-16 text-emerald-900">কেন আমাদের হানি নাট সেরা?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-gold text-center hover:shadow-lg transition">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-gem text-2xl text-emerald-700"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-4 text-emerald-900">প্রিমিয়াম কোয়ালিটি বাদাম</h3>
+                    <p class="text-gray-600 text-sm">আমরা ব্যবহার করি সেরা মানের কাজu, পেস্তা, কাঠবাদাম এবং আখরোট।</p>
+                </div>
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-gold text-center hover:shadow-lg transition">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-tint text-2xl text-emerald-700"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-4 text-emerald-900">১০০% খাঁটি মধু</h3>
+                    <p class="text-gray-600 text-sm">একদম প্রাকৃতিক চাকের মধু দিয়ে তৈরি, কোনো কৃত্রিম চিনি নেই।</p>
+                </div>
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-gold text-center hover:shadow-lg transition">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-handshake text-2xl text-emerald-700"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-4 text-emerald-900">সরাসরি সংগ্রহ</h3>
+                    <p class="text-gray-600 text-sm">আমরা প্রতিটি উপাদান সরাসরি সোর্স থেকে সংগ্রহ করি।</p>
+                </div>
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-gold text-center hover:shadow-lg transition">
+                    <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-leaf text-2xl text-emerald-700"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-4 text-emerald-900">কোনো প্রিজারভেটিভ নেই</h3>
+                    <p class="text-gray-600 text-sm">সম্পূর্ণ কেমিক্যালমুক্ত এবং স্বাস্থ্যসম্মত পরিবেশে প্রস্তুত।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Health Benefits -->
+    <section class="py-20 bg-emerald-900 text-white">
+        <div class="container mx-auto px-4">
+            <h2
+                class="text-3xl lg:text-4xl font-bold text-center mb-16 underline decoration-gold decoration-4 underline-offset-8">
+                স্বাস্থ্য উপকারিতা</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <div class="flex items-center space-x-6">
+                    <div
+                        class="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center flex-shrink-0 border border-gold/50">
+                        <i class="fas fa-bolt text-gold text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">ইনস্ট্যান্ট এনার্জি</h4>
+                        <p class="text-emerald-50/70">সারাদিনের ক্লান্তি দূর করে দ্রুত শক্তি জোগায়।</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <div
+                        class="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center flex-shrink-0 border border-gold/50">
+                        <i class="fas fa-brain text-gold text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">স্মৃতিশক্তি বৃদ্ধি</h4>
+                        <p class="text-emerald-50/70">বাদাম ও মধুর মিশ্রণ মস্তিষ্কের কর্মক্ষমতা বাড়াতে সাহায্য করে।</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <div
+                        class="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center flex-shrink-0 border border-gold/50">
+                        <i class="fas fa-shield-alt text-gold text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">রোগ প্রতিরোধ</h4>
+                        <p class="text-emerald-50/70">শরীরের ইমিউনিটি সিস্টেমকে শক্তিশালী করে।</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <div
+                        class="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center flex-shrink-0 border border-gold/50">
+                        <i class="fas fa-dumbbell text-gold text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">হাড় ও পেশীর গঠন</h4>
+                        <p class="text-emerald-50/70">প্রচুর পরিমাণে ক্যালসিয়াম ও প্রোটিন সমৃদ্ধ।</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Social Proof (Reviews) -->
+    {% if reviews %}
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl lg:text-4xl font-bold text-center mb-16 text-emerald-900">যারা আমাদের হানি নাট খেয়েছেন
+                তারা কী বলছেন?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for review in reviews[:3] %}
+                <div class="bg-[#FDFBF7] p-8 rounded-3xl border border-emerald-50 shadow-sm relative italic">
+                    <i class="fas fa-quote-left absolute top-4 left-4 text-emerald-100 text-4xl"></i>
+                    <p class="text-lg text-emerald-900 mb-6 relative z-10">{{ review.comment or "অসাধারন স্বাদ এবং
+                        কোয়ালিটি!" }}</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full overflow-hidden bg-emerald-200 mr-4">
+                            {% if review.profile_pic_path %}
+                            <img src="{{ url_for('static', filename=review.profile_pic_path) }}"
+                                class="w-full h-full object-cover" loading="lazy">
+                            {% else %}
+                            <div class="w-full h-full flex items-center justify-center text-emerald-800 font-bold">
+                                {{ (review.customer_name or 'K')[0] }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-emerald-900 text-sm">{{ review.customer_name or "ভেরিফাইড
+                                কাস্টমার" }}</h4>
+                            <div class="flex text-gold text-[10px]">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- 6. Special Offer & Urgency -->
+    <section class="py-16 premium-gradient text-white border-y border-gold/30">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl lg:text-5xl font-black mb-6 tracking-tight">সীমিত সময়ের ধামাকা অফার!</h2>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 mb-10">
+                <div class="text-2xl md:text-3xl text-emerald-200/80 line-through">নিয়মিত মূল্য: ৳{{ settings.old_price
+                    }}</div>
+                <div class="text-5xl md:text-7xl font-black text-gold drop-shadow-lg">আজকের অফার: ৳১১৯৯</div>
+            </div>
+
+            <p class="text-lg mb-6 font-bold uppercase tracking-widest text-emerald-100">(শুধুমাত্র আজকের জন্য)</p>
+
+            <div class="max-w-md mx-auto">
+                <p class="text-sm mb-4 text-emerald-200">অফারটি শেষ হতে আর মাত্র:</p>
+                <div class="flex justify-center gap-4 text-center">
+                    <div class="timer-box w-20 py-3 rounded-xl">
+                        <div id="hours" class="text-3xl font-black text-gold">00</div>
+                        <div class="text-[10px] uppercase font-medium">ঘন্টা</div>
+                    </div>
+                    <div class="timer-box w-20 py-3 rounded-xl">
+                        <div id="minutes" class="text-3xl font-black text-gold">00</div>
+                        <div class="text-[10px] uppercase font-medium">মিনিট</div>
+                    </div>
+                    <div class="timer-box w-20 py-3 rounded-xl">
+                        <div id="seconds" class="text-3xl font-black text-gold">00</div>
+                        <div class="text-[10px] uppercase font-medium">সেকেন্ড</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#checkout"
+                class="mt-12 inline-block cta-button text-white px-12 py-5 rounded-2xl text-2xl font-black shadow-2xl">
+                অফারটি লুফে নিন!
+            </a>
+        </div>
+    </section>
+
+    <!-- 7. Checkout Form -->
+    <section id="checkout" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div
+                class="max-w-4xl mx-auto bg-[#FDFBF7] rounded-[40px] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-emerald-50">
+                <!-- Product Preview -->
+                <div class="md:w-5/12 premium-gradient p-10 text-white flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold mb-6 text-gold">অর্ডার করতে নিচের ফর্মটি পূরণ করুন</h3>
+                    <div class="bg-white/10 rounded-2xl p-6 backdrop-blur-sm border border-white/10 mb-8">
+                        {% if '/' in settings.image_path %}
+                        <img src="{{ url_for('static', filename=settings.image_path) }}"
+                            class="w-32 h-32 mx-auto rounded-xl shadow-lg mb-4" loading="lazy">
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/' + settings.image_path) }}"
+                            class="w-32 h-32 mx-auto rounded-xl shadow-lg mb-4" loading="lazy">
+                        {% endif %}
+                        <h4 class="text-center font-bold text-lg mb-2">{{ settings.product_name }}</h4>
+                        <p class="text-center text-gold font-black text-2xl">৳১১৯৯</p>
+                    </div>
+                    <div class="space-y-4 text-sm text-emerald-100">
+                        <div class="flex items-center"><i class="fas fa-check-circle text-gold mr-3"></i> ১০০% ন্যাচারাল
+                            উপাদান</div>
+                        <div class="flex items-center"><i class="fas fa-check-circle text-gold mr-3"></i> সারাদেশে ক্যাশ
+                            অন ডেলিভারি</div>
+                        <div class="flex items-center"><i class="fas fa-check-circle text-gold mr-3"></i> হাতে পেয়ে চেক
+                            করার সুবিধা</div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="md:w-7/12 p-10">
+                    <form action="/order" method="POST" class="space-y-6">
+                        <input type="hidden" name="price" value="870"> <!-- Passing the special price -->
+                        <div>
+                            <label class="block text-emerald-900 font-bold mb-2 ml-1">আপনার পূর্ণ নাম</label>
+                            <input type="text" name="full_name" required placeholder="উদাহরণ: মাহিনুল ইসলাম"
+                                class="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-lg bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-emerald-900 font-bold mb-2 ml-1">মোবাইল নম্বর</label>
+                            <input type="tel" name="mobile" required placeholder="017XXXXXXXX"
+                                class="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-lg bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-emerald-900 font-bold mb-2 ml-1">পূর্ণ ঠিকানা</label>
+                            <textarea name="address" required placeholder="গ্রাম, ডাকঘর, থানা, জেলা"
+                                class="w-full px-6 py-4 rounded-2xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-lg bg-white h-32"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-emerald-900 font-bold mb-2 ml-1">পরিমাণ (১টি/২টি/৩টি)</label>
+                            <div
+                                class="flex items-center bg-white rounded-2xl border border-gray-200 overflow-hidden max-w-[200px]">
+                                <button type="button" onclick="updateQty(-1)"
+                                    class="w-14 h-14 flex items-center justify-center text-emerald-900 font-bold hover:bg-emerald-50 transition">-</button>
+                                <input type="number" name="quantity" id="quantity-input" value="1" min="1" readonly
+                                    class="w-12 text-center bg-transparent border-none focus:ring-0 font-bold text-xl text-emerald-900">
+                                <button type="button" onclick="updateQty(1)"
+                                    class="w-14 h-14 flex items-center justify-center text-emerald-900 font-bold hover:bg-emerald-50 transition">+</button>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-emerald-50 p-4 rounded-2xl border border-dashed border-emerald-200 flex justify-between items-center mb-4">
+                            <span class="font-bold text-emerald-900">সর্বমোট:</span>
+                            <span class="text-3xl font-black text-emerald-900">৳<span id="total-display">{{
+                                    settings.price }}</span></span>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full cta-button text-white py-6 rounded-2xl text-2xl font-black shadow-xl hover:shadow-gold/20">
+                            অর্ডার কনফার্ম করুন
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Trust Badges -->
+    <footer class="bg-emerald-950 text-white py-12 border-t border-gold/10">
+        <div class="container mx-auto px-4">
+            <!-- Trust Badges -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 text-center">
+                <div class="flex flex-col items-center">
+                    <div
+                        class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-4 border border-white/10">
+                        <i class="fas fa-truck text-gold text-2xl"></i>
+                    </div>
+                    <h5 class="font-bold text-lg mb-2">সারা বাংলাদেশে দ্রুত ডেলিভারি</h5>
+                    <p class="text-emerald-100/50 text-sm">৪৮-৭২ ঘন্টার মধ্যে নিশ্চিত ডেলিভারি</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div
+                        class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-4 border border-white/10">
+                        <i class="fas fa-wallet text-gold text-2xl"></i>
+                    </div>
+                    <h5 class="font-bold text-lg mb-2">ক্যাশ অন ডেলিভারি (COD)</h5>
+                    <p class="text-emerald-100/50 text-sm">হাতে পেয়ে চেক করে পেমেন্ট করার সুবিধা</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div
+                        class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-4 border border-white/10">
+                        <i class="fas fa-history text-gold text-2xl"></i>
+                    </div>
+                    <h5 class="font-bold text-lg mb-2">সহজ রিটার্ন পলিসি</h5>
+                    <p class="text-emerald-100/50 text-sm">পছন্দ না হলে সহজ রিটার্ন সুবিধা</p>
+                </div>
+            </div>
+
+            <div class="text-center pt-8 border-t border-white/5">
+                <p class="text-emerald-100/30 text-xs">&copy; ২০২৪ {{ settings.shop_name }}। সর্বস্বত্ব সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Quantity & Price Logic
+        const unitPrice = {{ settings.price }}; // Using the provided special price
+        function updateQty(change) {
+            const input = document.getElementById('quantity-input');
+            const display = document.getElementById('total-display');
+
+            let currentVal = parseInt(input.value);
+            let newVal = currentVal + change;
+
+            if (newVal < 1) newVal = 1;
+
+            input.value = newVal;
+            display.innerText = (newVal * unitPrice).toFixed(0);
+        }
+
+        // Countdown Timer Logic
+        function startTimer(duration, display) {
+            let timer = duration, hours, minutes, seconds;
+            setInterval(function () {
+                hours = parseInt(timer / 3600, 10);
+                minutes = parseInt((timer % 3600) / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                document.getElementById('hours').textContent = hours < 10 ? "0" + hours : hours;
+                document.getElementById('minutes').textContent = minutes < 10 ? "0" + minutes : minutes;
+                document.getElementById('seconds').textContent = seconds < 10 ? "0" + seconds : seconds;
+
+                if (--timer < 0) {
+                    timer = duration; // Reset for demo
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            let twelveHours = 60 * 60 * 12;
+            startTimer(twelveHours);
+        };
+
+        // Data Layer
+        document.addEventListener('DOMContentLoaded', function () {
+            window.dataLayer = window.dataLayer || [];
+
+            // View Item Event
+            window.dataLayer.push({
+                'event': 'view_item',
+                'ecommerce': {
+                    'currency': 'BDT',
+                    'value': unitPrice,
+                    'items': [{
+                        'item_name': '{{ settings.product_name }}',
+                        'price': unitPrice,
+                        'quantity': 1
+                    }]
+                }
+            });
+
+            // Add to Cart / Click to Checkout Event
+            const ctaButtons = document.querySelectorAll('a[href="#checkout"]');
+            ctaButtons.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    window.dataLayer.push({
+                        'event': 'add_to_cart',
+                        'ecommerce': {
+                            'currency': 'BDT',
+                            'value': unitPrice,
+                            'items': [{
+                                'item_name': '{{ settings.product_name }}',
+                                'price': unitPrice,
+                                'quantity': 1
+                            }]
+                        }
+                    });
+                });
+            });
+
+            // Purchase Event (Form Submit)
+            const orderForm = document.querySelector('form[action="/order"]');
+            if (orderForm) {
+                orderForm.addEventListener('submit', function () {
+                    const qty = document.getElementById('quantity-input').value;
+                    const total = document.getElementById('total-display').innerText;
+
+                    window.dataLayer.push({
+                        'event': 'purchase',
+                        'ecommerce': {
+                            'transaction_id': 'T_' + new Date().getTime(),
+                            'value': total,
+                            'currency': 'BDT',
+                            'items': [{
+                                'item_name': '{{ settings.product_name }}',
+                                'price': unitPrice,
+                                'quantity': qty
+                            }]
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

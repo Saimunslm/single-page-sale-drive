@@ -1,0 +1,50 @@
+cPanel Deployment Guide for Flask App
+====================================
+
+এই প্রজেক্টটি cPanel এ হোস্ট করার জন্য নিচের ধাপগুলো অনুসরণ করুন:
+
+১. ফাইল আপলোড (Upload Files):
+---------------------------
+- আপনার প্রজেক্টের সমস্ত ফাইল (ব্যতীত `venv` এবং `__pycache__` ফোল্ডার) একটি ZIP ফাইল করুন।
+- cPanel এর File Manager এ গিয়ে আপনার ডোমেইন বা সাব-ডোমেইনের রুট ফোল্ডারে এটি আপলোড করে Extract করুন।
+
+২. পাইথন অ্যাপ তৈরি (Setup Python App):
+------------------------------------
+- cPanel এ "Setup Python App" অপশনে যান।
+- "Create Application" বাটনে ক্লিক করুন।
+- Python Version: ৩.১০ বা তার উপরের ভার্সন সিলেক্ট করুন।
+- Application root: যেখানে ফাইলগুলো আপলোড করেছেন সেই ফোল্ডারের নাম (যেমন: organic-dokan)।
+- Application URL: আপনার ডোমেইন সিলেক্ট করুন।
+- Application startup file: `passenger_wsgi.py` লিখুন।
+- Application Entry point: `application` লিখুন।
+- "Create" বাটনে ক্লিক করুন।
+
+৩. ডিপেন্ডেন্সি ইন্সটল (Install Dependencies):
+------------------------------------------
+- অ্যাপটি তৈরি হওয়ার পর স্ক্রিনের উপরে একটি কমান্ড দেখতে পাবেন (যেমন: `source /home/username/nodevenv/.../bin/activate`)। এটি কপি করুন।
+- cPanel এর "Terminal" অপশনে গিয়ে কমান্ডটি পেস্ট করে এন্টার দিন।
+- এরপর নিচের কমান্ডটি দিন:
+  `pip install -r requirements.txt`
+
+৪. ফাইল পারমিশন (Permissions):
+---------------------------
+- `static/uploads` এবং `instance/orders.db` ফাইলটি যাতে সার্ভার এডিট করতে পারে সেজন্য নিশ্চিত করুন এগুলোর পারমিশন সঠিক আছে (সাধারণত 755 বা 644)।
+
+৫. অ্যাপ রিস্টার্ট (Restart App):
+-----------------------------
+- "Setup Python App" সেকশনে ফিরে গিয়ে "Restart" বাটনে ক্লিক করুন।
+
+৬. অটোমেটিক স্ট্যাটাস আপডেট (Cron Job):
+------------------------------------
+অর্ডারগুলোর ডেলিভারি স্ট্যাটাস নিজে নিজে আপডেট হওয়ার জন্য একটি Cron Job সেট করুন:
+- cPanel এর "Cron Jobs" মেনুতে যান।
+- "Common Settings" থেকে "Once Per Hour" (প্রতি ঘণ্টায় একবার) সিলেক্ট করুন।
+- "Command" বক্সে নিচের কমান্ডটি দিন:
+  `curl -s "https://newroyalbd.shop/cron/update-steadfast-status?key=honey-nut-cron-secure-88"`
+- এরপর "Add New Cron Job" এ ক্লিক করুন।
+
+গুরুত্বপূর্ণ নোট:
+--------------
+- আমি অলরেডি `passenger_wsgi.py` এবং `requirements.txt` ফাইল তৈরি করে দিয়েছি।
+- ডাটাবেস পাথ প্রোডাকশন এর জন্য অপ্টিমাইজ করা হয়েছে।
+- যদি কোনো Internal Server Error দেখেন, তবে Error Log চেক করুন।

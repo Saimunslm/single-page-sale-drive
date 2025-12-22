@@ -1,0 +1,221 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Shop Settings{% endblock %}
+{% block header_title %}Shop Settings{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto pb-20">
+    <form method="POST" enctype="multipart/form-data" class="space-y-8">
+        {{ form.hidden_tag() }}
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Column: Branding & Core -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Branding Card -->
+                <div class="mui-card p-8">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600">
+                            <i class="fas fa-brush text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black text-gray-800 tracking-tight">Shop Branding</h3>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-wider">Identity & Visual Assets
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <label
+                                class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">Official
+                                Shop Name</label>
+                            {{ form.shop_name(class="w-full mui-input font-bold text-gray-700") }}
+                        </div>
+
+                        <div class="mui-card bg-gray-50/50 p-6 border-2 border-dashed border-gray-100">
+                            <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-4">Shop
+                                Logo</label>
+                            <div class="flex flex-col md:flex-row items-center gap-6">
+                                <div
+                                    class="w-24 h-24 bg-white rounded-2xl flex items-center justify-center p-3 shadow-sm ring-4 ring-white">
+                                    {% if settings.logo_path %}
+                                    <img src="{{ url_for('static', filename=settings.logo_path) }}"
+                                        class="max-w-full max-h-full object-contain">
+                                    {% else %}
+                                    <i class="fas fa-image text-gray-200 text-3xl"></i>
+                                    {% endif %}
+                                </div>
+                                <div class="flex-grow">
+                                    {{ form.logo(class="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4
+                                    file:rounded-xl file:border-0 file:text-[10px] file:font-black file:uppercase
+                                    file:bg-gray-800 file:text-white hover:file:bg-black cursor-pointer") }}
+                                    <p class="text-[10px] text-gray-400 mt-2 font-bold uppercase tracking-tight italic">
+                                        Recommended: 400x120px PNG</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logistics & API Card -->
+                <div class="mui-card p-8">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center text-amber-600">
+                            <i class="fas fa-truck-fast text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black text-gray-800 tracking-tight">Logistics Integration</h3>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-wider">Courier API
+                                Configuration</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label
+                                class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">SteadFast
+                                API Key</label>
+                            {{ form.steadfast_api_key(class="w-full mui-input font-medium text-gray-600",
+                            placeholder="API-...") }}
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">SteadFast
+                                Secret</label>
+                            {{ form.steadfast_secret_key(class="w-full mui-input font-medium text-gray-600",
+                            placeholder="SEC-...") }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Card -->
+                <div class="mui-card p-8">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div
+                            class="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600">
+                            <i class="fas fa-chart-pie text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black text-gray-800 tracking-tight">Tracking & Pixels</h3>
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-wider">Marketing & Conversion
+                                Data</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label
+                                class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">Google
+                                Tag Manager ID</label>
+                            {{ form.gtm_id(class="w-full mui-input font-medium text-gray-600", placeholder="GTM-XXXXXX")
+                            }}
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">Facebook
+                                Pixel ID</label>
+                            {{ form.pixel_id(class="w-full mui-input font-medium text-gray-600",
+                            placeholder="123456789") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Info & Theming -->
+            <div class="space-y-8">
+                <!-- Contact Card -->
+                <div class="mui-card p-8">
+                    <h4 class="text-sm font-black text-gray-800 uppercase tracking-widest mb-6">Support & Contact</h4>
+                    <div class="space-y-6">
+                        <div>
+                            <label
+                                class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">Phone
+                                Number</label>
+                            {{ form.support_phone(class="w-full mui-input font-bold text-gray-700") }}
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">WhatsApp
+                                Number</label>
+                            {{ form.whatsapp_number(class="w-full mui-input font-bold text-gray-700") }}
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">Facebook
+                                Page</label>
+                            {{ form.facebook_url(class="w-full mui-input font-medium text-gray-600") }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Theme Selection Card -->
+                <div class="mui-card p-8 bg-gradient-to-br from-indigo-900 to-indigo-800 text-white">
+                    <style>
+                        .theme-select option {
+                            color: #1e1b4b !important;
+                            background-color: white !important;
+                        }
+                    </style>
+                    <h4 class="text-sm font-black text-white/80 uppercase tracking-widest mb-6">User Experience</h4>
+                    <div class="space-y-6">
+                        <div>
+                            <label
+                                class="block text-xs font-black text-white/50 uppercase tracking-widest mb-2 ml-1">Landing
+                                Theme</label>
+                            {{ form.landing_page_theme(class="theme-select w-full bg-white/10 border-white/20
+                            text-indigo-100 rounded-xl
+                            py-3 px-4 focus:outline-none focus:ring-2 focus:ring-white/30 transition font-bold") }}
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-black text-white/50 uppercase tracking-widest mb-2 ml-1">Post-Order
+                                Theme</label>
+                            {{ form.thank_you_page_theme(class="theme-select w-full bg-white/10 border-white/20
+                            text-indigo-100 rounded-xl
+                            py-3 px-4 focus:outline-none focus:ring-2 focus:ring-white/30 transition font-bold") }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save Button Container -->
+                <div class="sticky top-24">
+                    <button type="submit" class="mui-btn-primary w-full py-4 text-lg shadow-xl shadow-indigo-200">
+                        <i class="fas fa-check-circle mr-2"></i> Save All Changes
+                    </button>
+                    <p class="text-[10px] text-gray-400 text-center mt-4 font-bold uppercase tracking-widest">Changes
+                        affect store globally</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts Section -->
+        <div class="mui-card p-8 lg:p-12">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600">
+                    <i class="fas fa-code text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-black text-gray-800 tracking-tight">Advanced Injection</h3>
+                    <p class="text-xs text-gray-400 font-bold uppercase tracking-wider">Custom Header & Footer Scripts
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">Custom
+                        Header Scripts (&lt;head&gt;)</label>
+                    {{ form.custom_head_script(class="w-full mui-input font-mono text-xs text-gray-600 h-64
+                    bg-gray-50/30", placeholder="<!-- Insert scripts here -->") }}
+                </div>
+                <div>
+                    <label class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">Custom
+                        Body Scripts (&lt;body&gt;)</label>
+                    {{ form.custom_body_script(class="w-full mui-input font-mono text-xs text-gray-600 h-64
+                    bg-gray-50/30", placeholder="<!-- Insert scripts here -->") }}
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

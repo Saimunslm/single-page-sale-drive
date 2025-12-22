@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Management Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(30, 27, 75, 0.05) 0px, transparent 50%);
+        }
+
+        .mui-card {
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .mui-input {
+            background: #f1f5f9;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            padding: 1rem 1.25rem 1rem 3rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mui-input:focus {
+            background: white;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-gradient:hover {
+            box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.5);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-6">
+
+    <div class="w-full max-w-[440px]">
+        <!-- Brand Header -->
+        <div class="text-center mb-10">
+            <div
+                class="w-20 h-20 bg-white shadow-xl rounded-[28px] flex items-center justify-center mx-auto mb-6 ring-1 ring-gray-100">
+                <i class="fas fa-shield-halved text-indigo-600 text-3xl"></i>
+            </div>
+            <h1 class="text-3xl font-black text-gray-900 tracking-tight">Management Portal</h1>
+            <p class="text-gray-400 font-bold uppercase tracking-widest text-[10px] mt-2">Authorized Access Only</p>
+        </div>
+
+        <div class="mui-card p-10">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div
+                class="mb-8 p-4 rounded-2xl bg-red-50 text-red-600 border border-red-100 text-xs font-black uppercase tracking-tight flex items-center">
+                <i class="fas fa-circle-exclamation mr-3 text-sm"></i> {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <form method="POST" class="space-y-6">
+                {{ form.hidden_tag() }}
+
+                <div class="group">
+                    <label
+                        class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3 ml-1">Identity
+                        Access</label>
+                    <div class="relative">
+                        <span
+                            class="absolute inset-y-0 left-0 pl-5 flex items-center text-gray-400 group-focus-within:text-indigo-600 transition-colors">
+                            <i class="fas fa-user-shield"></i>
+                        </span>
+                        {{ form.username(class="w-full mui-input outline-none font-bold text-gray-700",
+                        placeholder="Username") }}
+                    </div>
+                </div>
+
+                <div class="group">
+                    <label
+                        class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3 ml-1">Security
+                        Token</label>
+                    <div class="relative">
+                        <span
+                            class="absolute inset-y-0 left-0 pl-5 flex items-center text-gray-400 group-focus-within:text-indigo-600 transition-colors">
+                            <i class="fas fa-key"></i>
+                        </span>
+                        {{ form.password(class="w-full mui-input outline-none font-bold text-gray-700",
+                        placeholder="Password") }}
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit"
+                        class="w-full btn-gradient text-white py-4 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl flex items-center justify-center gap-3">
+                        <i class="fas fa-lock"></i>
+                        Sign In Secured
+                    </button>
+                </div>
+
+                <div class="text-center pt-8 border-t border-gray-50 flex flex-col gap-4">
+                    <a href="/"
+                        class="text-[10px] font-black text-gray-400 hover:text-indigo-600 uppercase tracking-widest transition flex items-center justify-center gap-2">
+                        <i class="fas fa-home"></i> Return to Storefront
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <p class="text-center text-[10px] text-gray-300 font-bold uppercase tracking-[0.3em] mt-12">
+            &copy; 2024 Secure Shield &bull; Organic Dokan
+        </p>
+    </div>
+
+</body>
+
+</html>
