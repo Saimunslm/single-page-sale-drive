@@ -105,13 +105,15 @@
                     <div
                         class="absolute inset-0 bg-brand-500 rounded-full filter blur-3xl opacity-20 transform scale-90">
                     </div>
-                    {% if '/' in settings.image_path %}
-                    <img src="{{ url_for('static', filename=settings.image_path) }}" alt="{{ settings.product_name }}"
-                        class="relative w-full max-w-md mx-auto transform hover:scale-105 transition duration-500 drop-shadow-2xl">
-                    {% else %}
-                    <img src="{{ url_for('static', filename='images/' + settings.image_path) }}"
+                    <!-- Dynamic Hero Image -->
+                    {% if settings.image_path %}
+                    <img src="{{ settings.image_path if settings.image_path.startswith('http') else url_for('static', filename=settings.image_path) }}"
                         alt="{{ settings.product_name }}"
-                        class="relative w-full max-w-md mx-auto transform hover:scale-105 transition duration-500 drop-shadow-2xl">
+                        class="relative w-full max-w-lg mx-auto transform hover:scale-105 transition duration-500 drop-shadow-2xl">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='images/hero-product.png') }}"
+                        alt="{{ settings.product_name }}"
+                        class="relative w-full max-w-lg mx-auto transform hover:scale-105 transition duration-500 drop-shadow-2xl">
                     {% endif %}
                 </div>
             </div>
