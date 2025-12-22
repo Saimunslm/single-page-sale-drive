@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ settings.product_name }} - {{ settings.shop_name }}</title>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbf0',
+                            100: '#ffefc2',
+                            500: '#d97706', // Amber-600 like
+                            600: '#b45309', // Amber-700
+                            800: '#92400e', // Amber-800
+                            900: '#78350f', // Amber-900
+                        },
+                        earth: '#5D4037', // Brown
+                        golden: '#FFC107',
+                    },
+                    fontFamily: {
+                        hind: ['Hind Siliguri', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+    {% if settings.custom_head_script %}
+    {{ settings.custom_head_script|safe }}
+    {% endif %}
+</head>
+
+<body class="bg-brand-50 text-gray-800 font-hind">
+    {% if settings.custom_body_script %}
+    {{ settings.custom_body_script|safe }}
+    {% endif %}
+
+    <!-- 1. Header Section -->
+    <header class="fixed w-full top-0 z-50 glass-nav shadow-md transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="text-2xl font-bold text-brand-800">
+                {% if settings.logo_path %}
+                <img src="{{ url_for('static', filename=settings.logo_path) }}" alt="{{ settings.shop_name }}"
+                    class="h-10">
+                {% else %}
+                {{ settings.shop_name }}
+                {% endif %}
+            </div>
+            <a href="#order"
+                class="bg-brand-600 hover:bg-brand-800 text-white px-6 py-2 rounded-full font-bold shadow-lg transition transform hover:scale-105">
+                এখনই অর্ডার করুন
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-12 overflow-hidden">
+        <div class="absolute inset-0 bg-yellow-50 z-0 opacity-50"></div>
+        <!-- Background decorative blob or blurred image could go here -->
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 text-center lg:text-left space-y-6">
+                    <span
+                        class="inline-block bg-brand-100 text-brand-800 px-4 py-1 rounded-full text-sm font-bold border border-brand-500">
+                        ১০০% খাঁটি ও নির্ভেজাল
+                    </span>
+                    <h1 class="text-4xl lg:text-6xl font-bold text-earth leading-tight">
+                        ঐতিহ্যবাহী চিরচেনা স্বাদের </br><span class="text-brand-600">খাঁটি খেজুর গুড়</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 font-medium">
+                        সরাসরি চাষি থেকে আপনার হাতে! গ্রাম বাংলার সেই আসল স্বাদ ও ঘ্রাণ এখন আপনার ঘরে।
+                    </p>
+                    <div class="pt-4">
+                        <a href="#order"
+                            class="inline-flex items-center bg-red-600 text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-red-700 transition shadow-xl animate-pulse">
+                            এখনই অর্ডার করুন <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 relative">
+                    <div
+                        class="absolute inset-0 bg-brand-500 rounded-full filter blur-3xl opacity-20 transform scale-90">
+                    </div>
+                    {% if '/' in settings.image_path %}
+                    <img src="{{ url_for('static', filename=settings.image_path) }}" alt="{{ settings.product_name }}"
+                        class="relative w-full max-w-md mx-auto transform hover:scale-105 transition duration-500 drop-shadow-2xl">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='images/' + settings.image_path) }}"
+                        alt="{{ settings.product_name }}"
+                        class="relative w-full max-w-md mx-auto transform hover:scale-105 transition duration-500 drop-shadow-2xl">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Unique Selling Points -->
+    <section id="usp-section" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-earth">কেন আমাদের গুড় সেরা?</h2>
+                <div class="w-24 h-1 bg-brand-500 mx-auto mt-4 rounded"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- USP 1 -->
+                <div
+                    class="p-8 bg-brand-50 rounded-2xl hover:shadow-xl transition duration-300 border border-brand-100 text-center group">
+                    <div
+                        class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-md group-hover:scale-110 transition">
+                        <i class="fas fa-check-circle text-4xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-earth mb-3">১০০% খাঁটি ও নির্ভেজাল</h3>
+                    <p class="text-gray-600">কোনো প্রকার চিনি বা কেমিক্যাল মেশানো হয় না। সম্পূর্ণ প্রাকৃতিকভাবে তৈরি।
+                    </p>
+                </div>
+                <!-- USP 2 -->
+                <div
+                    class="p-8 bg-brand-50 rounded-2xl hover:shadow-xl transition duration-300 border border-brand-100 text-center group">
+                    <div
+                        class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-md group-hover:scale-110 transition">
+                        <i class="fas fa-leaf text-4xl text-brand-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-earth mb-3">ঐতিহ্যবাহী স্বাদ ও ঘ্রাণ</h3>
+                    <p class="text-gray-600">ঠিক যেমনটি আপনি ছোটবেলায় খেয়েছেন, সেই মাটির হাড়ির আসল স্বাদ।</p>
+                </div>
+                <!-- USP 3 -->
+                <div
+                    class="p-8 bg-brand-50 rounded-2xl hover:shadow-xl transition duration-300 border border-brand-100 text-center group">
+                    <div
+                        class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-md group-hover:scale-110 transition">
+                        <i class="fas fa-hand-holding-heart text-4xl text-red-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-earth mb-3">সরাসরি প্রস্তুতকারক থেকে</h3>
+                    <p class="text-gray-600">আমরা নিজেরা যত্নে এই গুড় তৈরি করি, কোনো মধ্যস্বত্বভোগী নেই।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Product Showcase -->
+    <section class="py-16 bg-gradient-to-b from-brand-50 to-white">
+        <div class="container mx-auto px-4">
+            <div
+                class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-brand-100 flex flex-col lg:flex-row">
+                <div class="lg:w-1/2 relative bg-brand-100 min-h-[400px]">
+                    <!-- Displaying another image, maybe img2.jpg -->
+                    <img src="{{ url_for('static', filename='themes/multy/images/img2.jpg') }}" alt="Product Showcase"
+                        class="absolute inset-0 w-full h-full object-cover">
+                </div>
+                <div class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center">
+                    <h3 class="text-3xl font-bold text-earth mb-4">{{ settings.product_name }}</h3>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">{{ settings.product_description }}</p>
+
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold">
+                            বিশেষ অফার
+                        </div>
+                        <span class="text-gray-400 line-through text-xl">৳{{ settings.old_price | bn_digits }}</span>
+                        <span class="text-4xl font-extrabold text-brand-600">৳{{ settings.price | bn_digits }}</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="bg-gray-50 p-4 rounded-xl flex items-center gap-3">
+                            <i class="fas fa-weight-hanging text-brand-500 text-xl"></i>
+                            <div>
+                                <p class="text-xs text-gray-500 font-bold">পরিমাণ</p>
+                                <p class="font-bold text-gray-800">১ কেজি</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-xl flex items-center gap-3">
+                            <i class="fas fa-truck text-brand-500 text-xl"></i>
+                            <div>
+                                <p class="text-xs text-gray-500 font-bold">ডেলিভারি</p>
+                                <p class="font-bold text-gray-800">সারাদেশে</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#order"
+                        class="w-full bg-earth hover:bg-gray-800 text-center text-white text-xl font-bold py-4 rounded-xl transition shadow-lg">
+                        অর্ডার করতে এখানে ক্লিক করুন
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Process Gallery -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-earth">গুড় তৈরির প্রক্রিয়া</h2>
+                <p class="text-gray-500 mt-2">পরিচ্ছন্ন পরিবেশে আমাদের নিজস্ব তত্ত্বাবধানে গুড় তৈরির দৃশ্য</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="group overflow-hidden rounded-2xl shadow-lg relative h-64">
+                    <img src="{{ url_for('static', filename='themes/multy/images/img3.jpg') }}" alt="Process 1"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 translate-y-full group-hover:translate-y-0 transition duration-300">
+                        <p class="text-white font-bold text-center">রস সংগ্রহ ও জ্বাল দেওয়া</p>
+                    </div>
+                </div>
+                <div class="group overflow-hidden rounded-2xl shadow-lg relative h-64">
+                    <img src="{{ url_for('static', filename='themes/multy/images/img1.jpg') }}" alt="Process 2"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 translate-y-full group-hover:translate-y-0 transition duration-300">
+                        <p class="text-white font-bold text-center">ঘন গুড় তৈরি</p>
+                    </div>
+                </div>
+                <div class="group overflow-hidden rounded-2xl shadow-lg relative h-64">
+                    <img src="{{ url_for('static', filename='themes/multy/images/img4.jpg') }}" alt="Process 3"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div
+                        class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 translate-y-full group-hover:translate-y-0 transition duration-300">
+                        <p class="text-white font-bold text-center">দানাদার খাঁটি গুড়</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Reviews -->
+    {% if reviews %}
+    <section class="py-16 bg-brand-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-earth mb-12">কাস্টমার রিভিউ</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {% for review in reviews[:3] %}
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-brand-100">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-brand-200 rounded-full flex items-center justify-center text-brand-700 font-bold text-xl mr-4 overflow-hidden">
+                            {% if review.profile_pic_path %}
+                            <img src="{{ url_for('static', filename=review.profile_pic_path) }}"
+                                class="w-full h-full object-cover">
+                            {% else %}
+                            {{ review.customer_name[0] if review.customer_name else 'C' }}
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">{{ review.customer_name or 'কাস্টমার' }}</h4>
+                            <div class="text-yellow-400 text-sm">
+                                {% for i in range(review.rating or 5) %}<i class="fas fa-star"></i>{% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% if review.image_path %}
+                    <img src="{{ url_for('static', filename=review.image_path) }}"
+                        class="w-full h-40 object-cover rounded-lg mb-4">
+                    {% endif %}
+                    <p class="text-gray-600 italic">"{{ review.comment }}"</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- 6. Order Form -->
+    <section id="order" class="py-20 bg-white">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div
+                class="bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-brand-200 flex flex-col md:flex-row">
+                <!-- Left Side Info -->
+                <div
+                    class="md:w-1/3 bg-brand-600 text-white p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10">
+                    </div>
+                    <div class="relative z-10">
+                        <div class="text-center mb-6">
+                            {% if '/' in settings.image_path %}
+                            <img src="{{ url_for('static', filename=settings.image_path) }}"
+                                class="w-32 h-32 object-cover rounded-full border-4 border-white/20 mx-auto shadow-lg"
+                                alt="{{ settings.product_name }}">
+                            {% else %}
+                            <img src="{{ url_for('static', filename='images/' + settings.image_path) }}"
+                                class="w-32 h-32 object-cover rounded-full border-4 border-white/20 mx-auto shadow-lg"
+                                alt="{{ settings.product_name }}">
+                            {% endif %}
+                        </div>
+                        <h3 class="text-2xl font-bold mb-6 text-center">অর্ডার সামারি</h3>
+                        <div class="mb-4">
+                            <p class="text-brand-200 text-sm">পণ্যের নাম</p>
+                            <p class="font-bold text-lg">{{ settings.product_name }}</p>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-brand-200 text-sm">প্রতি কেজির দাম</p>
+                            <p class="font-bold text-2xl">৳<span id="base-price">{{ settings.price | bn_digits }}</span>
+                            </p>
+                        </div>
+                        <div class="mt-8 pt-8 border-t border-brand-500">
+                            <p class="text-brand-200 text-sm">মোট বিল</p>
+                            <p class="font-bold text-3xl">৳<span id="grand-total">{{ settings.price | bn_digits
+                                    }}</span></p>
+                            <p class="text-xs text-brand-200 mt-2">+ ডেলিভারি চার্জ</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 relative z-10 text-center">
+                        <div class="bg-white/10 rounded-xl p-4 backdrop-blur-sm">
+                            <i class="fas fa-phone-alt mb-2 text-2xl"></i>
+                            <p class="font-bold">প্রয়োজনে কল করুন</p>
+                            <a href="tel:{{ settings.support_phone }}" class="text-xl font-black block mt-1">{{
+                                settings.support_phone | bn_digits }}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side Form -->
+                <div class="md:w-2/3 p-8 lg:p-10 bg-white">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">আপনার তথ্য দিন</h3>
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    {% for category, message in messages %}
+                    <div
+                        class="bg-{{ 'red' if category == 'error' else 'green' }}-100 border border-{{ 'red' if category == 'error' else 'green' }}-400 text-{{ 'red' if category == 'error' else 'green' }}-700 px-4 py-3 rounded mb-4">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+
+                    <form action="/order" method="POST" class="space-y-5">
+
+                        <!-- Dynamic Variation -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">পরিমাণ নির্বাচন করুন</label>
+                            <div class="grid grid-cols-3 gap-3" id="qty-selector">
+                                <button type="button" onclick="setQty(1)"
+                                    class="qty-btn bg-brand-600 text-white border-2 border-brand-600 py-2 rounded-xl font-bold transition">১
+                                    কেজি</button>
+                                <button type="button" onclick="setQty(2)"
+                                    class="qty-btn bg-white text-gray-600 border-2 border-gray-200 py-2 rounded-xl font-bold hover:border-brand-500 transition">২
+                                    কেজি</button>
+                                <button type="button" onclick="setQty(5)"
+                                    class="qty-btn bg-white text-gray-600 border-2 border-gray-200 py-2 rounded-xl font-bold hover:border-brand-500 transition">৫
+                                    কেজি</button>
+                            </div>
+                            <input type="hidden" name="quantity" id="quantity-input" value="1">
+                        </div>
+
+                        <!-- Info Fields -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">আপনার নাম</label>
+                            <input type="text" name="full_name" required
+                                class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">মোবাইল নাম্বার</label>
+                            <input type="tel" name="mobile" required
+                                class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition"
+                                placeholder="017...">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">সম্পূর্ণ ঠিকানা</label>
+                            <textarea name="address" required rows="2"
+                                class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition"
+                                placeholder="বাসা নং, রোড, এলাকা..."></textarea>
+                        </div>
+
+                        <!-- Delivery Checkbox (Optional enhancement) -->
+                        <div class="bg-blue-50 p-4 rounded-xl flex items-start gap-3">
+                            <div class="mt-1"><i class="fas fa-info-circle text-blue-500"></i></div>
+                            <div class="text-sm text-blue-800">
+                                <p class="font-bold">ডেলিভারি চার্জ:</p>
+                                <p>ঢাকার ভেতরে ৮০ টাকা, বাইরে ১৫০ টাকা (অর্ডার কনফার্ম করার সময় প্রযোজ্য)</p>
+                            </div>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold text-xl py-4 rounded-xl shadow-lg transition transform active:scale-95">
+                            অর্ডার কনফার্ম করুন
+                        </button>
+                        <p class="text-center text-xs text-gray-400 font-bold uppercase tracking-wider">Cash on Delivery
+                            Available</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center md:text-left">
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-brand-500">{{ settings.shop_name }}</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        আমরা দিচ্ছি নির্ভেজাল ও খাঁটি গুড়ের নিশ্চয়তা। গ্রাম বাংলার ঐতিহ্যবাহী স্বাদ পৌঁছে দিচ্ছি আপনার
+                        ঘরে।
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-brand-500">যোগাযোগ</h4>
+                    <ul class="space-y-3 text-gray-300">
+                        <li><i class="fas fa-phone-alt mr-2 text-brand-500"></i> {{ settings.support_phone | bn_digits
+                            }}</li>
+                        {% if settings.whatsapp_number %}
+                        <li><i class="fab fa-whatsapp mr-2 text-green-500"></i> {{ settings.whatsapp_number | bn_digits
+                            }}</li>
+                        {% endif %}
+                        <li><i class="fas fa-envelope mr-2 text-brand-500"></i> support@example.com</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4 text-brand-500">সোশ্যাল মিডিয়া</h4>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        {% if settings.facebook_url %}
+                        <a href="{{ settings.facebook_url }}"
+                            class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition"><i
+                                class="fab fa-facebook-f"></i></a>
+                        {% endif %}
+                        <!-- Add more social links if needed -->
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                &copy;
+                <script>document.write(new Date().getFullYear())</script> {{ settings.shop_name }}. All rights reserved.
+                | Designed for Pure Taste.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        const basePrice = {{ settings.price }};
+
+        function setQty(qty) {
+            // Update input
+            document.getElementById('quantity-input').value = qty;
+
+            // Update Visuals
+            const buttons = document.querySelectorAll('.qty-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-600');
+            });
+
+            // Find the button clicked (based on text content or by finding event target logic better)
+            // Simplified: looping through buttons to find matching on click would be better passed as `this`
+            // But since I hardcoded numbers, I can just rely on the fact that I passed the number.
+
+            // Re-styling the active button
+            // I'll just use a simple lookup since there are only 3
+            // Actually, let's fix the logic to highlight the correct one
+            const btns = Array.from(document.querySelectorAll('.qty-btn'));
+            const targetBtn = btns.find(b => b.textContent.includes(toBn(qty))); // English to Bangla? No, button text is hardcoded Bangla "১ কেজি"
+
+            // Mapping number to button index
+            const map = { 1: 0, 2: 1, 5: 2 };
+            if (map[qty] !== undefined) {
+                const activeBtn = buttons[map[qty]];
+                activeBtn.classList.remove('bg-white', 'text-gray-600');
+                activeBtn.classList.add('bg-brand-600', 'text-white');
+            }
+
+            // Update Total
+            const total = basePrice * qty;
+            document.getElementById('grand-total').innerText = toBn(total);
+        }
+
+        function toBn(n) {
+            return n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+        }
+    </script>
+    <!-- Floating Call Button (Mobile Only) -->
+    <a href="tel:{{ settings.support_phone }}" id="floating-call-btn"
+        class="fixed bottom-6 right-6 z-50 transition-all duration-500 transform translate-y-20 opacity-0 md:hidden flex items-center justify-center">
+        <span class="absolute flex h-full w-full">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+        </span>
+        <div
+            class="relative bg-orange-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl border-2 border-orange-100">
+            <i class="fas fa-phone-volume text-xl"></i>
+        </div>
+    </a>
+
+    <script>
+        // Floating Call Button Scroll Logic
+        document.addEventListener('scroll', function () {
+            const uspSection = document.getElementById('usp-section');
+            const callBtn = document.getElementById('floating-call-btn');
+
+            if (uspSection && callBtn) {
+                // Show button after scrolling past the USP section
+                const triggerPoint = uspSection.offsetTop + uspSection.offsetHeight;
+
+                if (window.scrollY > triggerPoint) {
+                    callBtn.classList.remove('translate-y-20', 'opacity-0');
+                } else {
+                    callBtn.classList.add('translate-y-20', 'opacity-0');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
