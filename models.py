@@ -1,72 +1,84 @@
-from flask_sqlalchemy import SQLAlchemy
+from mongoengine import Document, StringField, IntField, DateTimeField, connect
 from flask_login import UserMixin
 from datetime import datetime
 
-db = SQLAlchemy()
+# No global db object needed for mongoengine, but we can stick to conventions if we want
+# or just inherit from Document directly.
 
-class Order(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    full_name = db.Column(db.String(100), nullable=False)
-    shipping_address = db.Column(db.Text, nullable=False)
-    mobile_number = db.Column(db.String(20), nullable=False)
-    quantity = db.Column(db.Integer, default=1)
-    total_price = db.Column(db.Integer, nullable=False)
-    status = db.Column(db.String(20), default='Pending') # Pending, Completed
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
-    steadfast_consignment_id = db.Column(db.String(50), nullable=True)
-    steadfast_status = db.Column(db.String(50), nullable=True)
+class Order(Document):
+    full_name = StringField(required=True, max_length=100)
+    shipping_address = StringField(required=True)
+    mobile_number = StringField(required=True, max_length=20)
+    quantity = IntField(default=1)
+    total_price = IntField(required=True)
+    status = StringField(default='Pending', max_length=20) # Pending, Completed
+    timestamp = DateTimeField(default=datetime.utcnow)
+    steadfast_consignment_id = StringField(max_length=50)
+    steadfast_status = StringField(max_length=50)
+
+    meta = {'indexes': ['-timestamp', 'mobile_number']}
 
     def __repr__(self):
         return f'<Order {self.id} - {self.full_name}>'
 
-class Admin(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    password = db.Column(db.String(120), nullable=False)
+class Admin(UserMixin, Document):
+    username = StringField(required=True, unique=True, max_length=80)
+    password = StringField(required=True, max_length=120)
 
-class ProductSetting(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    product_name = db.Column(db.String(200), nullable=False, default="প্রিমিয়াম হানি নাট")
-    product_description = db.Column(db.Text, nullable=False)
-    price = db.Column(db.Integer, nullable=False, default=990)
-    old_price = db.Column(db.Integer, nullable=False, default=1200)
-    image_path = db.Column(db.String(500), nullable=True, default="honey_nut.png")
-    logo_path = db.Column(db.String(500), nullable=True)
-    gtm_id = db.Column(db.String(50), nullable=True) # e.g. GTM-XXXXXX
-    pixel_id = db.Column(db.String(50), nullable=True) # e.g. 123456789
-    shop_name = db.Column(db.String(100), nullable=True, default="অর্গানিক দোকান")
-    support_phone = db.Column(db.String(20), nullable=True, default="01XXXXXXXXX")
-    whatsapp_number = db.Column(db.String(20), nullable=True, default="01XXXXXXXXX")
-    facebook_url = db.Column(db.String(200), nullable=True, default="#")
-    steadfast_api_key = db.Column(db.String(100), nullable=True)
-    steadfast_secret_key = db.Column(db.String(100), nullable=True)
-    landing_page_theme = db.Column(db.String(50), nullable=True, default="default")
-    thank_you_page_theme = db.Column(db.String(50), nullable=True, default="default")
-    video_url = db.Column(db.String(500), nullable=True)
-    product_weight = db.Column(db.String(50), nullable=True, default="500")
-    discount_amount = db.Column(db.Integer, nullable=True, default=100)
-    discount_amount_3 = db.Column(db.Integer, nullable=True, default=200)
-    custom_head_script = db.Column(db.Text, nullable=True)
-    custom_body_script = db.Column(db.Text, nullable=True)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    # Required for Flask-Login with MongoDB (ObjectId as string)
+    def get_id(self):
+        return str(self.id)
 
-class Review(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    customer_name = db.Column(db.String(100), nullable=True) # Optional if photo review
-    rating = db.Column(db.Integer, default=5, nullable=True)
-    comment = db.Column(db.Text, nullable=True)
-    image_path = db.Column(db.String(500), nullable=True) # Screenshot/Photo review
-    profile_pic_path = db.Column(db.String(500), nullable=True) # Reviewer profile picture
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+class ProductSetting(Document):
+    product_name = StringField(required=True, default="প্রিমিয়াম হানি নাট", max_length=200)
+    product_description = StringField(required=True)
+    price = IntField(required=True, default=990)
+    old_price = IntField(required=True, default=1200)
+    image_path = StringField(default="honey_nut.png", max_length=500)
+    logo_path = StringField(max_length=500)
+    gtm_id = StringField(max_length=50)
+    pixel_id = StringField(max_length=50)
+    shop_name = StringField(default="অর্গানিক দোকান", max_length=100)
+    support_phone = StringField(default="01XXXXXXXXX", max_length=20)
+    whatsapp_number = StringField(default="01XXXXXXXXX", max_length=20)
+    facebook_url = StringField(default="#", max_length=200)
+    steadfast_api_key = StringField(max_length=100)
+    steadfast_secret_key = StringField(max_length=100)
+    landing_page_theme = StringField(default="default", max_length=50)
+    thank_you_page_theme = StringField(default="default", max_length=50)
+    video_url = StringField(max_length=500)
+    product_weight = StringField(default="500", max_length=50)
+    discount_amount = IntField(default=100)
+    discount_amount_3 = IntField(default=200)
+    custom_head_script = StringField()
+    custom_body_script = StringField()
+    updated_at = DateTimeField(default=datetime.utcnow)
 
+    meta = {'indexes': ['-updated_at']}
+    
+    # Auto update timestamp
+    def save(self, *args, **kwargs):
+        self.updated_at = datetime.utcnow()
+        return super(ProductSetting, self).save(*args, **kwargs)
 
-class Traffic(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    ip_address = db.Column(db.String(45), nullable=True)  # Support IPv6
-    user_agent = db.Column(db.Text, nullable=True)
-    referrer = db.Column(db.String(500), nullable=True)
-    path = db.Column(db.String(500), nullable=True)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+class Review(Document):
+    customer_name = StringField(max_length=100)
+    rating = IntField(default=5)
+    comment = StringField()
+    image_path = StringField(max_length=500)
+    profile_pic_path = StringField(max_length=500)
+    timestamp = DateTimeField(default=datetime.utcnow)
+    
+    meta = {'indexes': ['-timestamp']}
+
+class Traffic(Document):
+    ip_address = StringField(max_length=45)
+    user_agent = StringField()
+    referrer = StringField(max_length=500)
+    path = StringField(max_length=500)
+    timestamp = DateTimeField(default=datetime.utcnow)
+    
+    meta = {'indexes': ['-timestamp', 'path', 'timestamp']}
     
     def __repr__(self):
         return f'<Traffic {self.id} - {self.path}>'

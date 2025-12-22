@@ -227,11 +227,13 @@
                                 APPROVE
                             </a>
                             {% endif %}
-                            <a href="{{ url_for('admin.delete_order', order_id=order.id) }}"
-                                onclick="return confirm('Archive this order?')"
-                                class="p-2 rounded-lg bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition">
-                                <i class="fas fa-trash-alt text-xs"></i>
-                            </a>
+                            <form action="{{ url_for('admin.delete_order', order_id=order.id) }}" method="POST"
+                                onsubmit="return confirm('Archive this order?')" style="display:inline;">
+                                <button type="submit"
+                                    class="p-2 rounded-lg bg-red-50 text-red-500 hover:bg-red-500 hover:text-white transition cursor-pointer">
+                                    <i class="fas fa-trash-alt text-xs"></i>
+                                </button>
+                            </form>
                         </div>
                     </td>
                 </tr>

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from models import db, Order, ProductSetting, Review, Traffic
+from models import Order, ProductSetting, Review, Traffic
 
 # Create blueprint
 main_bp = Blueprint('main', __name__)
@@ -10,7 +10,7 @@ def index():
     # Track traffic
     track_traffic(request, '/')
     
-    settings = ProductSetting.query.first()
+    settings = ProductSetting.objects.first()
     if not settings:
         # Initial default seeding if none exists
         settings = ProductSetting(
@@ -20,12 +20,10 @@ def index():
             old_price=1200,
             image_path="honey_nut.png"
         )
-        db.session.add(settings)
-        db.session.commit()
+        settings.save()
     
-    reviews = Review.query.order_by(Review.timestamp.desc()).all()
+    reviews = Review.objects.order_by('-timestamp')
     theme = settings.landing_page_theme or 'default'
-    print(f"DEBUG: Rendering theme: {theme} for shop: {settings.shop_name}")
     return render_template(f'themes/{theme}/index.html', settings=settings, reviews=reviews)
 
 @main_bp.route('/thank-you')
@@ -37,9 +35,12 @@ def thank_you():
     order_id = request.args.get('order_id')
     order = None
     if order_id:
-        order = Order.query.get(order_id)
+        try:
+            order = Order.objects.get(id=order_id)
+        except:
+            order = None
     
-    settings = ProductSetting.query.first()
+    settings = ProductSetting.objects.first()
     theme = settings.thank_you_page_theme or 'default'
     return render_template(f'themes/{theme}/thank_you.html', order=order, settings=settings)
 
@@ -52,9 +53,7 @@ def track_traffic(request, path):
             referrer=request.referrer,
             path=path
         )
-        db.session.add(traffic)
-        db.session.commit()
+        traffic.save()
     except Exception as e:
         # Log error but don't break the application
         print(f"Error tracking traffic: {e}")
-        db.session.rollback()

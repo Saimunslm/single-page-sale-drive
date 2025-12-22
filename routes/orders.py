@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from models import db, Order, ProductSetting, Traffic
+from models import Order, ProductSetting, Traffic
 from utils import convert_to_en_digits, is_valid_bd_mobile
 from datetime import datetime
 
@@ -33,14 +33,14 @@ def place_order():
         return redirect(url_for('main.index', _anchor='checkout'))
 
     # Anti-spam: Check for recent orders from same number (within 5 mins)
-    recent_order = Order.query.filter_by(mobile_number=mobile).order_by(Order.timestamp.desc()).first()
+    recent_order = Order.objects(mobile_number=mobile).order_by('-timestamp').first()
     if recent_order:
         time_diff = datetime.utcnow() - recent_order.timestamp
         if time_diff.total_seconds() < 300: # 5 minutes
             flash('আপনি সম্প্রতি একটি অর্ডার করেছেন। দয়া করে কিছুক্ষণ অপেক্ষা করুন।', 'error')
             return redirect(url_for('main.index', _anchor='checkout'))
 
-    settings = ProductSetting.query.first()
+    settings = ProductSetting.objects.first()
     total_price = settings.price * quantity
 
     new_order = Order(
@@ -50,10 +50,9 @@ def place_order():
         quantity=quantity,
         total_price=total_price
     )
-    db.session.add(new_order)
-    db.session.commit()
+    new_order.save()
     
-    return redirect(url_for('main.thank_you', order_id=new_order.id))
+    return redirect(url_for('main.thank_you', order_id=str(new_order.id)))
 
 def track_traffic(request, path):
     """Track website traffic."""
@@ -64,9 +63,7 @@ def track_traffic(request, path):
             referrer=request.referrer,
             path=path
         )
-        db.session.add(traffic)
-        db.session.commit()
+        traffic.save()
     except Exception as e:
         # Log error but don't break the application
         print(f"Error tracking traffic: {e}")
-        db.session.rollback()

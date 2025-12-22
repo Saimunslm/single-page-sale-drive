@@ -1,24 +1,31 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from models import db
+from models import Admin, ProductSetting
+from mongoengine import connect
 from config import config
 
 def create_app(config_name=None):
     """Application factory function."""
     if config_name is None:
-        config_name = os.getenv('FLASK_CONFIG', 'default')
+        config_name = os.getenv('FLASK_CONFIG', 'production') # Default to production to test cloud DB
     
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
     
+    # Connect to MongoDB
+    host = app.config['MONGODB_SETTINGS']['host']
+    connect(host=host)
+
     # Ensure upload directory exists
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     
     # Initialize extensions
-    db.init_app(app)
     login_manager = LoginManager()
     login_manager.init_app(app)
     login_manager.login_view = 'admin.admin_login'
@@ -28,7 +35,10 @@ def create_app(config_name=None):
     
     @login_manager.user_loader
     def load_user(user_id):
-        return Admin.query.get(int(user_id))
+        try:
+            return Admin.objects.get(id=user_id)
+        except:
+            return None
     
     # Register blueprints
     from routes.main import main_bp
@@ -62,23 +72,21 @@ def create_app(config_name=None):
             dt = dt + timedelta(hours=6)
         return dt.strftime('%d %b, %H:%M')
     
-    # Create database tables
+    # Create database tables (not needed for MongoDB, but we seed data here)
     with app.app_context():
-        db.create_all()
         # Create default admin if not exists
-        if not Admin.query.filter_by(username='admin').first():
-            db.session.add(Admin(username='admin', password='password123'))
+        if not Admin.objects(username='admin').first():
+            Admin(username='admin', password='password123').save()
+            
         # Create default product settings if not exists
-        from models import ProductSetting
-        if not ProductSetting.query.first():
-            db.session.add(ProductSetting(
+        if not ProductSetting.objects.first():
+            ProductSetting(
                 product_name="প্রিমিয়াম হানি নাট",
                 product_description="খাটি মধু এবং বাছাইকৃত ড্রাই ফ্রুটসের এক অনন্য সংমিশ্রণ। যা আপনাকে দিবে দীর্ঘক্ষণ কাজ করার শক্তি এবং রোগ প্রতিরোধ ক্ষমতা।",
                 price=990,
                 old_price=1200,
                 image_path="honey_nut.png"
-            ))
-        db.session.commit()
+            ).save()
     
     return app
 

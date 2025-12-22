@@ -4,7 +4,6 @@ from datetime import timedelta
 class Config:
     """Base configuration class."""
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'honey-nut-pro-secret-key-99'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB limit
     
     # Session configuration
@@ -24,19 +23,23 @@ class Config:
 class DevelopmentConfig(Config):
     """Development configuration."""
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-        'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'instance', 'orders.db')
+    MONGODB_SETTINGS = {
+        'host': os.environ.get('DEV_MONGODB_URI') or 'mongodb://localhost:27017/organic_shop_db'
+    }
 
 class ProductionConfig(Config):
     """Production configuration."""
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'instance', 'orders.db')
+    MONGODB_SETTINGS = {
+        'host': os.environ.get('MONGODB_URI') or 'mongodb+srv://new_royal_bd:SNyA6P0eaALBp6th@newroyalbd.b9dwiuy.mongodb.net/organic_shop_db?appName=newroyalbd'
+    }
 
 class TestingConfig(Config):
     """Testing configuration."""
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or 'sqlite:///:memory:'
+    MONGODB_SETTINGS = {
+        'host': 'mongomock://localhost'
+    }
 
 # Configuration dictionary
 config = {

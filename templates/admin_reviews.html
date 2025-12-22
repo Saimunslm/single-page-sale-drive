@@ -165,11 +165,13 @@
                                 class="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-indigo-400 hover:bg-indigo-600 hover:text-white transition">
                                 <i class="fas fa-pencil-alt text-sm"></i>
                             </a>
-                            <a href="{{ url_for('admin.delete_review', review_id=review.id) }}"
-                                onclick="return confirm('Archive this review permanently?')"
-                                class="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-red-400 hover:bg-red-500 hover:text-white transition">
-                                <i class="fas fa-trash-alt text-sm"></i>
-                            </a>
+                            <form action="{{ url_for('admin.delete_review', review_id=review.id) }}" method="POST"
+                                onsubmit="return confirm('Archive this review permanently?')" class="flex">
+                                <button type="submit"
+                                    class="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-red-400 hover:bg-red-500 hover:text-white transition cursor-pointer">
+                                    <i class="fas fa-trash-alt text-sm"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

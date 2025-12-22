@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
-from models import db, Order, Admin, ProductSetting, Review, Traffic
+from models import Order, Admin, ProductSetting, Review, Traffic
 from forms import LoginForm, ProductSettingsForm, ShopSettingsForm, ReviewForm
 from utils import save_uploaded_file, save_image_as_webp, get_bd_time
 import os
@@ -19,7 +19,7 @@ def admin_login():
     
     form = LoginForm()
     if form.validate_on_submit():
-        admin = Admin.query.filter_by(username=form.username.data).first()
+        admin = Admin.objects(username=form.username.data).first()
         if admin and admin.password == form.password.data:
             login_user(admin)
             return redirect(url_for('admin.admin_dashboard'))
@@ -30,30 +30,37 @@ def admin_login():
 @login_required
 def admin_dashboard():
     """Admin dashboard route."""
-    orders = Order.query.order_by(Order.timestamp.desc()).all()
+    orders = Order.objects.order_by('-timestamp')
     
     # Enrich orders with count of previous orders from same mobile number
-    for order in orders:
-        order.history_count = Order.query.filter_by(mobile_number=order.mobile_number).count()
+    # Note: iterating through all orders and querying again is expensive in Mongo too, but keeping logic same for now.
+    # To optimize, we could do aggregation, but let's stick to functional migration.
+    # Casting to list to treat as iterable if needed, but Cursor is iterable.
+    orders_list = list(orders) 
+    
+    for order in orders_list:
+        order.history_count = Order.objects(mobile_number=order.mobile_number).count()
 
     stats = {
-        'total': len(orders),
-        'pending': Order.query.filter_by(status='Pending').count(),
-        'completed': Order.query.filter_by(status='Completed').count()
+        'total': len(orders_list),
+        'pending': Order.objects(status='Pending').count(),
+        'completed': Order.objects(status='Completed').count()
     }
     
     # Get traffic data for the last 30 days
     thirty_days_ago = datetime.utcnow() - timedelta(days=30)
-    traffic_data = Traffic.query.filter(Traffic.timestamp >= thirty_days_ago).all()
+    traffic_data = Traffic.objects(timestamp__gte=thirty_days_ago)
     
     # Calculate traffic statistics
-    total_visitors = len(traffic_data)
-    unique_visitors = len(set([t.ip_address for t in traffic_data if t.ip_address]))
+    # Need to consume cursor for len() or use count(), but we need data for unique check
+    traffic_list = list(traffic_data)
+    total_visitors = len(traffic_list)
+    unique_visitors = len(set([t.ip_address for t in traffic_list if t.ip_address]))
     
     # Get traffic by path
     path_stats = {}
     referrer_stats = {}
-    for t in traffic_data:
+    for t in traffic_list:
         # Path stats
         path = t.path or 'Unknown'
         path_stats[path] = path_stats.get(path, 0) + 1
@@ -78,19 +85,19 @@ def admin_dashboard():
     now = datetime.utcnow()
     
     # Daily stats (last 24 hours)
-    daily_orders = Order.query.filter(Order.timestamp >= now - timedelta(days=1)).all()
+    daily_orders = Order.objects(timestamp__gte=now - timedelta(days=1))
     
     # 7 days stats
-    weekly_orders = Order.query.filter(Order.timestamp >= now - timedelta(days=7)).all()
+    weekly_orders = Order.objects(timestamp__gte=now - timedelta(days=7))
     
     # 14 days stats
-    fortnightly_orders = Order.query.filter(Order.timestamp >= now - timedelta(days=14)).all()
+    fortnightly_orders = Order.objects(timestamp__gte=now - timedelta(days=14))
     
     # 30 days stats
-    monthly_orders = Order.query.filter(Order.timestamp >= now - timedelta(days=30)).all()
+    monthly_orders = Order.objects(timestamp__gte=now - timedelta(days=30))
     
     # 60 days stats
-    two_month_orders = Order.query.filter(Order.timestamp >= now - timedelta(days=60)).all()
+    two_month_orders = Order.objects(timestamp__gte=now - timedelta(days=60))
     
     # Prepare chart data
     chart_data = {
@@ -103,19 +110,19 @@ def admin_dashboard():
     
     # Calculate traffic statistics for different time periods
     # Daily stats (last 24 hours)
-    daily_traffic = Traffic.query.filter(Traffic.timestamp >= now - timedelta(days=1)).all()
+    daily_traffic = Traffic.objects(timestamp__gte=now - timedelta(days=1))
     
     # 7 days stats
-    weekly_traffic = Traffic.query.filter(Traffic.timestamp >= now - timedelta(days=7)).all()
+    weekly_traffic = Traffic.objects(timestamp__gte=now - timedelta(days=7))
     
     # 14 days stats
-    fortnightly_traffic = Traffic.query.filter(Traffic.timestamp >= now - timedelta(days=14)).all()
+    fortnightly_traffic = Traffic.objects(timestamp__gte=now - timedelta(days=14))
     
     # 30 days stats
-    monthly_traffic = Traffic.query.filter(Traffic.timestamp >= now - timedelta(days=30)).all()
+    monthly_traffic = Traffic.objects(timestamp__gte=now - timedelta(days=30))
     
     # 60 days stats
-    two_month_traffic = Traffic.query.filter(Traffic.timestamp >= now - timedelta(days=60)).all()
+    two_month_traffic = Traffic.objects(timestamp__gte=now - timedelta(days=60))
     
     # Prepare traffic chart data
     traffic_chart_data = {
@@ -126,13 +133,13 @@ def admin_dashboard():
         'two_month': prepare_traffic_chart_data(two_month_traffic, 'two_month')
     }
     
-    return render_template('admin_dashboard.html', orders=orders, stats=stats, chart_data=chart_data, traffic_stats=traffic_stats, traffic_chart_data=traffic_chart_data)
+    return render_template('admin_dashboard.html', orders=orders_list, stats=stats, chart_data=chart_data, traffic_stats=traffic_stats, traffic_chart_data=traffic_chart_data)
 
 @admin_bp.route('/admin/product-settings', methods=['GET', 'POST'])
 @login_required
 def admin_product_settings():
     """Admin product settings route."""
-    settings = ProductSetting.query.first()
+    settings = ProductSetting.objects.first()
     form = ProductSettingsForm(obj=settings)
     
     if form.validate_on_submit():
@@ -151,7 +158,7 @@ def admin_product_settings():
             if filename:
                 settings.image_path = f"uploads/{filename}"
             
-        db.session.commit()
+        settings.save()
         flash('Product settings updated!', 'success')
         return redirect(url_for('admin.admin_product_settings'))
         
@@ -169,7 +176,7 @@ def admin_shop_settings():
         # Ensure we have a set of unique choices and "default" is one of them
         theme_choices = sorted(list(set([(t, t.capitalize()) for t in themes])))
     
-    settings = ProductSetting.query.first()
+    settings = ProductSetting.objects.first()
     form = ShopSettingsForm(obj=settings)
     form.landing_page_theme.choices = theme_choices
     form.thank_you_page_theme.choices = theme_choices
@@ -194,7 +201,7 @@ def admin_shop_settings():
             if filename:
                 settings.logo_path = f"uploads/{filename}"
             
-        db.session.commit()
+        settings.save()
         flash('Shop settings updated!', 'success')
         return redirect(url_for('admin.admin_shop_settings'))
         
@@ -227,19 +234,23 @@ def admin_reviews():
             image_path=image_path,
             profile_pic_path=profile_pic_path
         )
-        db.session.add(new_review)
-        db.session.commit()
+        new_review.save()
         flash('Review added successfully!', 'success')
         return redirect(url_for('admin.admin_reviews'))
     
-    reviews = Review.query.order_by(Review.timestamp.desc()).all()
+    reviews = Review.objects.order_by('-timestamp')
     return render_template('admin_reviews.html', reviews=reviews, form=form)
 
-@admin_bp.route('/admin/reviews/edit/<int:review_id>', methods=['GET', 'POST'])
+@admin_bp.route('/admin/reviews/edit/<review_id>', methods=['GET', 'POST'])
 @login_required
 def edit_review(review_id):
     """Edit a review."""
-    review = Review.query.get_or_404(review_id)
+    try:
+        review = Review.objects.get(id=review_id)
+    except:
+        flash('Review not found', 'error')
+        return redirect(url_for('admin.admin_reviews'))
+        
     form = ReviewForm(obj=review)
     
     if form.validate_on_submit():
@@ -258,48 +269,62 @@ def edit_review(review_id):
         review.rating = form.rating.data
         review.comment = form.comment.data
         
-        db.session.commit()
+        review.save()
         flash('Review updated successfully!', 'success')
         return redirect(url_for('admin.admin_reviews'))
         
     return render_template('admin_edit_review.html', form=form, review=review)
 
-@admin_bp.route('/admin/reviews/delete/<int:review_id>')
+@admin_bp.route('/admin/reviews/delete/<review_id>', methods=['GET', 'POST'])
 @login_required
 def delete_review(review_id):
     """Delete a review."""
-    review = Review.query.get_or_404(review_id)
-    db.session.delete(review)
-    db.session.commit()
-    flash('Review deleted!', 'success')
+    try:
+        review = Review.objects.get(id=review_id)
+        review.delete()
+        flash('Review deleted!', 'success')
+    except Exception as e:
+        print(f"Error deleting review: {e}")
+        flash(f'Error deleting review: {str(e)}', 'error')
     return redirect(url_for('admin.admin_reviews'))
 
-@admin_bp.route('/admin/order/complete/<int:order_id>')
+@admin_bp.route('/admin/order/complete/<order_id>')
 @login_required
 def complete_order(order_id):
     """Mark an order as completed."""
-    order = Order.query.get_or_404(order_id)
-    order.status = 'Completed'
-    db.session.commit()
-    flash(f'Order #{order_id} marked as completed.', 'success')
+    try:
+        order = Order.objects.get(id=order_id)
+        order.status = 'Completed'
+        order.save()
+        flash(f'Order #{str(order_id)[:8]}... marked as completed.', 'success')
+    except:
+        flash('Order not found', 'error')
     return redirect(url_for('admin.admin_dashboard'))
 
-@admin_bp.route('/admin/order/delete/<int:order_id>')
+@admin_bp.route('/admin/order/delete/<order_id>', methods=['GET', 'POST'])
 @login_required
 def delete_order(order_id):
     """Delete an order."""
-    order = Order.query.get_or_404(order_id)
-    db.session.delete(order)
-    db.session.commit()
-    flash(f'Order #{order_id} deleted.', 'success')
+    try:
+        order = Order.objects.get(id=order_id)
+        order.delete()
+        flash(f'Order #{str(order_id)[:8]}... deleted.', 'success')
+    except Exception as e:
+        print(f"Error deleting order: {e}")
+        flash(f'Error deleting order: {str(e)}', 'error')
     return redirect(url_for('admin.admin_dashboard'))
 
-@admin_bp.route('/admin/order/steadfast-send/<int:order_id>')
+@admin_bp.route('/admin/order/steadfast-send/<order_id>')
 @login_required
 def admin_send_steadfast(order_id):
     """Send order to SteadFast courier."""
-    order = Order.query.get_or_404(order_id)
-    settings = ProductSetting.query.first()
+    try:
+        order = Order.objects.get(id=order_id)
+    except:
+        flash('Order not found', 'error')
+        return redirect(url_for('admin.admin_dashboard'))
+        
+    settings = ProductSetting.objects.first()
     
     if not settings.steadfast_api_key or not settings.steadfast_secret_key:
         flash('SteadFast API keys are not configured.', 'error')
@@ -314,8 +339,11 @@ def admin_send_steadfast(order_id):
     # SteadFast requires 11 digit phone number, removing +88 if exists
     phone = order.mobile_number[-11:] 
     
+    # Mongo ID object to string for invoice
+    invoice_id = str(order.id)[-6:].upper()
+    
     payload = {
-        "invoice": f"HT-{order.id}",
+        "invoice": f"HT-{invoice_id}",
         "recipient_name": order.full_name,
         "recipient_phone": phone,
         "recipient_address": order.shipping_address,
@@ -334,9 +362,9 @@ def admin_send_steadfast(order_id):
         data = response.json()
         
         if response.status_code == 200 and data.get('status') == 200:
-            order.steadfast_consignment_id = data['consignment']['consignment_id']
+            order.steadfast_consignment_id = str(data['consignment']['consignment_id'])
             order.steadfast_status = data['consignment']['status']
-            db.session.commit()
+            order.save()
             flash(f'Successfully sent to SteadFast! CID: {order.steadfast_consignment_id}', 'success')
         else:
             error_msg = data.get('message') or str(data.get('errors')) or 'Unknown error'
@@ -346,12 +374,17 @@ def admin_send_steadfast(order_id):
         
     return redirect(url_for('admin.admin_dashboard'))
 
-@admin_bp.route('/admin/order/steadfast-status/<int:order_id>')
+@admin_bp.route('/admin/order/steadfast-status/<order_id>')
 @login_required
 def admin_check_steadfast_status(order_id):
     """Check SteadFast delivery status."""
-    order = Order.query.get_or_404(order_id)
-    settings = ProductSetting.query.first()
+    try:
+        order = Order.objects.get(id=order_id)
+    except:
+        flash('Order not found', 'error')
+        return redirect(url_for('admin.admin_dashboard'))
+        
+    settings = ProductSetting.objects.first()
     
     if not order.steadfast_consignment_id:
         flash('Order not sent to SteadFast yet.', 'error')
@@ -369,7 +402,7 @@ def admin_check_steadfast_status(order_id):
         
         if response.status_code == 200 and data.get('status') == 200:
             order.steadfast_status = data['delivery_status']
-            db.session.commit()
+            order.save()
             flash(f'SteadFast Status: {order.steadfast_status}', 'info')
         else:
             flash('Failed to fetch status from SteadFast.', 'error')
@@ -386,15 +419,16 @@ def cron_update_steadfast_status():
     if key != 'honey-nut-cron-secure-88':
         return "Unauthorized", 401
         
-    settings = ProductSetting.query.first()
+    settings = ProductSetting.objects.first()
     if not settings or not settings.steadfast_api_key:
         return "API not configured", 400
         
     # Get orders that are not delivered or cancelled and have a CID
-    pending_orders = Order.query.filter(
-        Order.steadfast_consignment_id != None,
-        ~Order.steadfast_status.in_(['delivered', 'cancelled', 'Delivered', 'Cancelled'])
-    ).all()
+    # MongoEngine syntax for NOT IN
+    pending_orders = Order.objects(
+        steadfast_consignment_id__ne=None,
+        steadfast_status__nin=['delivered', 'cancelled', 'Delivered', 'Cancelled']
+    )
     
     updated_count = 0
     headers = {
@@ -409,11 +443,11 @@ def cron_update_steadfast_status():
             data = response.json()
             if response.status_code == 200 and data.get('status') == 200:
                 order.steadfast_status = data['delivery_status']
+                order.save() # Save individually
                 updated_count += 1
         except:
             continue
             
-    db.session.commit()
     return f"Processed {len(pending_orders)} orders, Updated {updated_count}.", 200
 
 def prepare_chart_data(orders, period):
