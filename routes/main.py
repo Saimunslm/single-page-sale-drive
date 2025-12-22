@@ -1,5 +1,9 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app, abort
 from models import Order, ProductSetting, Review, Traffic
+import os
+
+# Valid themes
+VALID_THEMES = ['default', 'modern', 'multy', 'premium', 'vsl']
 
 # Create blueprint
 main_bp = Blueprint('main', __name__)
@@ -24,7 +28,27 @@ def index():
     
     reviews = Review.objects.order_by('-timestamp')
     theme = settings.landing_page_theme or 'default'
-    return render_template(f'themes/{theme}/index.html', settings=settings, reviews=reviews)
+    
+    # Validate theme
+    if theme not in VALID_THEMES:
+        theme = 'default'
+    
+    # Ensure theme directory exists
+    theme_path = os.path.join(current_app.root_path, 'templates', 'themes', theme)
+    if not os.path.exists(theme_path):
+        # Fallback to default theme if specified theme doesn't exist
+        theme = 'default'
+    
+    template_path = f'themes/{theme}/index.html'
+    template_full_path = os.path.join(current_app.root_path, 'templates', template_path)
+    
+    # Check if template exists
+    if not os.path.exists(template_full_path):
+        # If the specific template doesn't exist, fall back to default
+        theme = 'default'
+        template_path = f'themes/{theme}/index.html'
+    
+    return render_template(template_path, settings=settings, reviews=reviews)
 
 @main_bp.route('/thank-you')
 def thank_you():
@@ -42,7 +66,27 @@ def thank_you():
     
     settings = ProductSetting.objects.first()
     theme = settings.thank_you_page_theme or 'default'
-    return render_template(f'themes/{theme}/thank_you.html', order=order, settings=settings)
+    
+    # Validate theme
+    if theme not in VALID_THEMES:
+        theme = 'default'
+    
+    # Ensure theme directory exists
+    theme_path = os.path.join(current_app.root_path, 'templates', 'themes', theme)
+    if not os.path.exists(theme_path):
+        # Fallback to default theme if specified theme doesn't exist
+        theme = 'default'
+    
+    template_path = f'themes/{theme}/thank_you.html'
+    template_full_path = os.path.join(current_app.root_path, 'templates', template_path)
+    
+    # Check if template exists
+    if not os.path.exists(template_full_path):
+        # If the specific template doesn't exist, fall back to default
+        theme = 'default'
+        template_path = f'themes/{theme}/thank_you.html'
+    
+    return render_template(template_path, order=order, settings=settings)
 
 def track_traffic(request, path):
     """Track website traffic."""

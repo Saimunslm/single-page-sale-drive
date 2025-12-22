@@ -31,7 +31,7 @@ class Admin(UserMixin, Document):
 
 class ProductSetting(Document):
     product_name = StringField(required=True, default="প্রিমিয়াম হানি নাট", max_length=200)
-    product_description = StringField(required=True)
+    product_description = StringField(required=True, default="খাটি মধু এবং বাছাইকৃত ড্রাই ফ্রুটসের এক অনন্য সংমিশ্রণ। যা আপনাকে দিবে দীর্ঘক্ষণ কাজ করার শক্তি এবং রোগ প্রতিরোধ ক্ষমতা।")
     price = IntField(required=True, default=990)
     old_price = IntField(required=True, default=1200)
     image_path = StringField(default="honey_nut.png", max_length=500)
