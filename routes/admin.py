@@ -154,7 +154,7 @@ def admin_product_settings():
         
         if form.image.data:
             folder = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'uploads')
-            filename = save_image_as_webp(form.image.data, folder, prefix='prod')
+            filename = save_uploaded_file(form.image.data, folder, prefix='prod')
             if filename:
                 settings.image_path = f"uploads/{filename}"
             
@@ -197,7 +197,7 @@ def admin_shop_settings():
         
         if form.logo.data:
             folder = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'uploads')
-            filename = save_image_as_webp(form.logo.data, folder, prefix='logo')
+            filename = save_uploaded_file(form.logo.data, folder, prefix='logo')
             if filename:
                 settings.logo_path = f"uploads/{filename}"
             
@@ -217,13 +217,13 @@ def admin_reviews():
         folder = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'uploads')
         
         if form.image.data:
-            filename = save_image_as_webp(form.image.data, folder, prefix='rev')
+            filename = save_uploaded_file(form.image.data, folder, prefix='rev')
             if filename:
                 image_path = f"uploads/{filename}"
             
         profile_pic_path = None
         if form.profile_pic.data:
-            filename = save_image_as_webp(form.profile_pic.data, folder, prefix='pfp')
+            filename = save_uploaded_file(form.profile_pic.data, folder, prefix='pfp')
             if filename:
                 profile_pic_path = f"uploads/{filename}"
             
@@ -256,12 +256,12 @@ def edit_review(review_id):
     if form.validate_on_submit():
         folder = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'uploads')
         if form.image.data:
-            filename = save_image_as_webp(form.image.data, folder, prefix='rev')
+            filename = save_uploaded_file(form.image.data, folder, prefix='rev')
             if filename:
                 review.image_path = f"uploads/{filename}"
             
         if form.profile_pic.data:
-            filename = save_image_as_webp(form.profile_pic.data, folder, prefix='pfp')
+            filename = save_uploaded_file(form.profile_pic.data, folder, prefix='pfp')
             if filename:
                 review.profile_pic_path = f"uploads/{filename}"
             
