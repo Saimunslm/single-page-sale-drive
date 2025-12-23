@@ -1,5 +1,5 @@
 from app import create_app
-from models import db, Review
+from models import Review
 
 def seed_reviews():
     reviews = [
@@ -34,17 +34,18 @@ def seed_reviews():
     with app.app_context():
         for rev_data in reviews:
             # Check if this review already exists to avoid duplicates
-            exists = Review.query.filter_by(customer_name=rev_data['customer_name']).first()
+            exists = Review.objects(customer_name=rev_data['customer_name']).first()
             if not exists:
-                new_rev = Review(
+                Review(
                     customer_name=rev_data['customer_name'],
                     rating=rev_data['rating'],
                     comment=rev_data['comment']
-                )
-                db.session.add(new_rev)
+                ).save()
+                print(f"Added review from {rev_data['customer_name']}")
+            else:
+                print(f"Skipped existing review from {rev_data['customer_name']}")
         
-        db.session.commit()
-        print("Successfully added positive reviews for Honey Nut!")
+        print("Successfully seeded reviews for Honey Nut!")
 
 if __name__ == "__main__":
     seed_reviews()
