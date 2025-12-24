@@ -1,0 +1,88 @@
+<!-- 3. Product Showcase -->
+<section class="py-16 bg-gradient-to-b from-brand-50 to-white" id="products">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center text-earth mb-12">আমাদের সেরা পণ্যসমূহ</h2>
+
+        {% if products %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for product in products %}
+            <div
+                class="bg-white rounded-2xl shadow-lg overflow-hidden border border-brand-100 hover:shadow-2xl transition duration-300 flex flex-col h-full group">
+                <div class="relative h-64 overflow-hidden bg-gray-100">
+                    {% if product.image_path %}
+                    {% if product.image_path.startswith('http') %}
+                    <img src="{{ product.image_path }}" alt="{{ product.name }}"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    {% else %}
+                    <img src="{{ url_for('static', filename=product.image_path) }}" alt="{{ product.name }}"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    {% endif %}
+                    {% else %}
+                    <div class="flex items-center justify-center h-full text-gray-300">
+                        <i class="fas fa-image text-4xl"></i>
+                    </div>
+                    {% endif %}
+
+                    {% if product.stock > 0 %}
+                    <div
+                        class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                        ইন স্টক
+                    </div>
+                    {% else %}
+                    <div
+                        class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                        আউট অফ স্টক
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-xl font-bold text-earth mb-2 line-clamp-2">{{ product.name }}</h3>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-3 flex-grow">{{ product.description }}</p>
+
+                    <div class="flex items-end justify-between mt-auto pt-4 border-t border-gray-100">
+                        <div>
+                            {% if product.old_price %}
+                            <p class="text-gray-400 text-sm line-through">৳{{ product.old_price | bn_digits }}</p>
+                            {% endif %}
+                            <p class="text-2xl font-bold text-brand-600">৳{{ product.price | bn_digits }}</p>
+                        </div>
+
+                        <button
+                            onclick="selectProduct('{{ product.id }}', '{{ product.name }}', {{ product.price }}, '{{ product.image_path }}')"
+                            class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2 rounded-lg font-bold shadow transition transform hover:-translate-y-1">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- Fallback to Single Product View if no products list -->
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-brand-100 flex flex-col lg:flex-row">
+            <div class="lg:w-1/2 relative bg-brand-100 min-h-[400px]">
+                <img src="{{ url_for('static', filename='themes/multy/images/img2.jpg') }}" alt="Product Showcase"
+                    class="absolute inset-0 w-full h-full object-cover">
+            </div>
+            <div class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center">
+                <h3 class="text-3xl font-bold text-earth mb-4">{{ settings.product_name }}</h3>
+                <p class="text-gray-600 mb-6 text-lg leading-relaxed">{{ settings.product_description }}</p>
+
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold">
+                        বিশেষ অফার
+                    </div>
+                    <span class="text-gray-400 line-through text-xl">৳{{ settings.old_price | bn_digits }}</span>
+                    <span class="text-4xl font-extrabold text-brand-600">৳{{ settings.price | bn_digits }}</span>
+                </div>
+
+                <a href="#order"
+                    class="w-full bg-earth hover:bg-gray-800 text-center text-white text-xl font-bold py-4 rounded-xl transition shadow-lg">
+                    অর্ডার করতে এখানে ক্লিক করুন
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>

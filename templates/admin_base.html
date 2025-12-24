@@ -144,8 +144,8 @@
                 class="sidebar-item flex items-center p-4 text-gray-500 {% if request.endpoint == 'admin.admin_dashboard' %}active text-white{% endif %}">
                 <i class="fas fa-chart-pie w-6 text-lg"></i> <span>Dashboard</span>
             </a>
-            <a href="{{ url_for('admin.admin_product_settings') }}"
-                class="sidebar-item flex items-center p-4 text-gray-500 {% if request.endpoint == 'admin.admin_product_settings' %}active text-white{% endif %}">
+            <a href="{{ url_for('admin.admin_products') }}"
+                class="sidebar-item flex items-center p-4 text-gray-500 {% if request.endpoint == 'admin.admin_products' %}active text-white{% endif %}">
                 <i class="fas fa-cube w-6 text-lg"></i> <span>Products</span>
             </a>
             <a href="{{ url_for('admin.admin_reviews') }}"

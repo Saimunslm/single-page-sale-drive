@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, TextAreaField, IntegerField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, TextAreaField, IntegerField, SubmitField, SelectField, BooleanField
 from wtforms.validators import DataRequired, Length
 
 class LoginForm(FlaskForm):
@@ -58,3 +58,15 @@ class ReviewForm(FlaskForm):
         FileAllowed(['jpg', 'png', 'jpeg', 'webp'], 'Images only!')
     ])
     submit = SubmitField('Add Review')
+class ProductForm(FlaskForm):
+    '''Form for managing products.'''
+    name = StringField('Product Name', validators=[DataRequired(), Length(max=200)])
+    price = IntegerField('Price', validators=[DataRequired()])
+    old_price = IntegerField('Old Price')
+    description = TextAreaField('Description')
+    stock = IntegerField('Stock Quantity', default=0)
+    image = FileField('Product Image', validators=[
+        FileAllowed(['jpg', 'png', 'jpeg', 'webp'], 'Images only!')
+    ])
+    is_active = BooleanField('Active Product', default=True)
+    submit = SubmitField('Save Product')
