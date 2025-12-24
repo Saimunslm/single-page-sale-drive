@@ -7,6 +7,7 @@ from models import Order, Admin, ProductSetting, Review, Traffic, Product
 from forms import LoginForm, ProductSettingsForm, ShopSettingsForm, ReviewForm, ProductForm
 from utils import save_uploaded_file, save_image_as_webp, get_bd_time
 from extensions import db
+from sqlalchemy import or_, func, distinct, desc
 import os
 
 # Create blueprint
@@ -31,42 +32,74 @@ def admin_login():
 @login_required
 def admin_dashboard():
     """Admin dashboard route."""
-    orders = Order.query.order_by(Order.timestamp.desc()).all()
+    """Admin dashboard route."""
+    # Pagination & Filtering
+    page = request.args.get('page', 1, type=int)
+    per_page = 20
+    status_filter = request.args.get('status')
+    search_query = request.args.get('search')
+    
+    query = Order.query
+    
+    # Apply Status Filter
+    if status_filter and status_filter != 'All':
+        query = query.filter(Order.status == status_filter)
+        
+    # Apply Search Search
+    if search_query:
+        search = f"%{search_query}%"
+        query = query.filter(or_(
+            Order.id.ilike(search),
+            Order.full_name.ilike(search),
+            Order.mobile_number.ilike(search)
+        ))
+        
+    # Get paginated orders
+    orders_pagination = query.order_by(Order.timestamp.desc()).paginate(page=page, per_page=per_page, error_out=False)
+    orders = orders_pagination.items
     
     # Enrich orders with count of previous orders from same mobile number
     for order in orders:
         order.history_count = Order.query.filter_by(mobile_number=order.mobile_number).count()
 
+    # Stats - Use Count Queries
+    # Optimization: Use db.session.query(func.count(Order.id)) if possible, or Order.query.count()
     stats = {
-        'total': len(orders),
+        'total': Order.query.count(),
         'pending': Order.query.filter_by(status='Pending').count(),
         'completed': Order.query.filter_by(status='Completed').count()
     }
     
-    # Get traffic data for the last 30 days
+    # Get traffic data for the last 30 days - Optimized
     thirty_days_ago = datetime.utcnow() - timedelta(days=30)
-    traffic_data = Traffic.query.filter(Traffic.timestamp >= thirty_days_ago).all()
     
-    # Calculate traffic statistics
-    total_visitors = len(traffic_data)
-    unique_visitors = len(set([t.ip_address for t in traffic_data if t.ip_address]))
+    # Calculate traffic statistics using Aggregation
+    total_visitors = db.session.query(func.count(Traffic.id)).filter(Traffic.timestamp >= thirty_days_ago).scalar()
+    unique_visitors = db.session.query(func.count(distinct(Traffic.ip_address))).filter(Traffic.timestamp >= thirty_days_ago).scalar()
     
-    # Get traffic by path
-    path_stats = {}
-    referrer_stats = {}
-    for t in traffic_data:
-        # Path stats
-        path = t.path or 'Unknown'
-        path_stats[path] = path_stats.get(path, 0) + 1
-        
-        # Referrer stats
-        referrer = t.referrer or 'Direct'
-        if referrer != 'Direct':
-            referrer_stats[referrer] = referrer_stats.get(referrer, 0) + 1
+    # Get top paths - Optimized
+    top_paths_query = db.session.query(
+        Traffic.path, func.count(Traffic.id).label('count')
+    ).filter(
+        Traffic.timestamp >= thirty_days_ago
+    ).group_by(
+        Traffic.path
+    ).order_by(desc('count')).limit(5).all()
     
-    # Sort and get top 5 for each
-    top_paths = sorted(path_stats.items(), key=lambda x: x[1], reverse=True)[:5]
-    top_referrers = sorted(referrer_stats.items(), key=lambda x: x[1], reverse=True)[:5]
+    top_paths = [(p[0] or 'Unknown', p[1]) for p in top_paths_query]
+
+    # Get top referrers - Optimized
+    top_referrers_query = db.session.query(
+        Traffic.referrer, func.count(Traffic.id).label('count')
+    ).filter(
+        Traffic.timestamp >= thirty_days_ago,
+        Traffic.referrer != None,
+        Traffic.referrer != 'Direct' # Assuming 'Direct' is handled or stored as None/Empty
+    ).group_by(
+        Traffic.referrer
+    ).order_by(desc('count')).limit(5).all()
+    
+    top_referrers = [(r[0], r[1]) for r in top_referrers_query]
     
     traffic_stats = {
         'total_visitors': total_visitors,
@@ -116,14 +149,20 @@ def admin_dashboard():
         'two_month': prepare_traffic_chart_data(two_month_traffic, 'two_month')
     }
     
-    return render_template('admin_dashboard.html', orders=orders, stats=stats, chart_data=chart_data, traffic_stats=traffic_stats, traffic_chart_data=traffic_chart_data)
+    return render_template('admin_dashboard.html', orders=orders, pagination=orders_pagination, stats=stats, chart_data=chart_data, traffic_stats=traffic_stats, traffic_chart_data=traffic_chart_data)
 
 @admin_bp.route('/admin/products')
 @login_required
 def admin_products():
     """List all products."""
-    products = Product.query.order_by(Product.timestamp.desc()).all()
-    return render_template('admin_products.html', products=products)
+    """List all products."""
+    page = request.args.get('page', 1, type=int)
+    per_page = 20
+    
+    products_pagination = Product.query.order_by(Product.timestamp.desc()).paginate(page=page, per_page=per_page, error_out=False)
+    products = products_pagination.items
+    
+    return render_template('admin_products.html', products=products, pagination=products_pagination)
 
 @admin_bp.route('/admin/product/add', methods=['GET', 'POST'])
 @login_required
@@ -388,6 +427,34 @@ def delete_order(order_id):
     except Exception as e:
         print(f"Error deleting order: {e}")
         flash(f'Error deleting order: {str(e)}', 'error')
+    return redirect(url_for('admin.admin_dashboard'))
+
+@admin_bp.route('/admin/orders/bulk-action', methods=['POST'])
+@login_required
+def bulk_order_action():
+    """Handle bulk actions for orders."""
+    action = request.form.get('action')
+    order_ids = request.form.getlist('order_ids')
+
+    if not action or not order_ids:
+        flash('No action or orders selected', 'error')
+        return redirect(url_for('admin.admin_dashboard'))
+        
+    try:
+        if action == 'delete':
+            # Use 'in_' to match any ID in the list
+            Order.query.filter(Order.id.in_(order_ids)).delete(synchronize_session=False)
+            flash(f'{len(order_ids)} orders deleted successfully.', 'success')
+            
+        elif action in ['Pending', 'Confirmed', 'Completed', 'Cancelled']:
+            Order.query.filter(Order.id.in_(order_ids)).update({Order.status: action}, synchronize_session=False)
+            flash(f'{len(order_ids)} orders marked as {action}.', 'success')
+            
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Error performing bulk action: {str(e)}', 'error')
+        
     return redirect(url_for('admin.admin_dashboard'))
 
 @admin_bp.route('/admin/order/steadfast-send/<int:order_id>')

@@ -92,6 +92,30 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Pagination -->
+        {% if pagination.pages > 1 %}
+        <div class="p-4 border-t border-gray-100 flex justify-between items-center bg-gray-50/50">
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                Showing {{ pagination.page }} of {{ pagination.pages }}
+            </span>
+            <div class="flex gap-2">
+                {% if pagination.has_prev %}
+                <a href="{{ url_for('admin.admin_products', page=pagination.prev_num) }}"
+                    class="px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-600 hover:bg-brand-50 hover:text-brand-600 transition shadow-sm">
+                    <i class="fas fa-chevron-left mr-1"></i> Prev
+                </a>
+                {% endif %}
+
+                {% if pagination.has_next %}
+                <a href="{{ url_for('admin.admin_products', page=pagination.next_num) }}"
+                    class="px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-600 hover:bg-brand-50 hover:text-brand-600 transition shadow-sm">
+                    Next <i class="fas fa-chevron-right ml-1"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

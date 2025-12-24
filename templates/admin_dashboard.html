@@ -135,18 +135,68 @@
             <p class="text-xs text-gray-400 mt-1 font-medium italic">Overview of the last transactions from landing
                 pages</p>
         </div>
-        <div class="flex items-center gap-3">
-            <span class="text-xs font-bold text-gray-400 hidden lg:block uppercase tracking-widest">Toggle Mobile
-                View</span>
-            <div class="w-1 h-8 bg-gray-100 hidden lg:block"></div>
-            <i class="fas fa-search text-gray-400 ml-2"></i>
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+            <form action="{{ url_for('admin.admin_dashboard') }}" method="GET"
+                class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                <select name="status"
+                    class="mui-input text-sm py-2 px-3 bg-gray-50 border-gray-100 focus:bg-white transition"
+                    onchange="this.form.submit()">
+                    <option value="All" {% if request.args.get('status')=='All' %}selected{% endif %}>All Status
+                    </option>
+                    <option value="Pending" {% if request.args.get('status')=='Pending' %}selected{% endif %}>Pending
+                    </option>
+                    <option value="Confirmed" {% if request.args.get('status')=='Confirmed' %}selected{% endif %}>
+                        Confirmed</option>
+                    <option value="Completed" {% if request.args.get('status')=='Completed' %}selected{% endif %}>
+                        Completed</option>
+                    <option value="Cancelled" {% if request.args.get('status')=='Cancelled' %}selected{% endif %}>
+                        Cancelled</option>
+                </select>
+                <div class="relative flex-grow sm:flex-grow-0">
+                    <input type="text" name="search" placeholder="Search orders..."
+                        value="{{ request.args.get('search', '') }}"
+                        class="mui-input text-sm py-2 px-3 pl-9 bg-gray-50 border-gray-100 focus:bg-white w-full sm:w-64 transition">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400 text-xs"></i>
+                </div>
+                <button type="submit" class="hidden"></button>
+            </form>
         </div>
+    </div>
+
+</div>
+
+<!-- Bulk Actions Bar (Hidden by default) -->
+<form id="bulkActionForm" action="{{ url_for('admin.bulk_order_action') }}" method="POST">
+    <div id="bulkActionsBar"
+        class="hidden bg-indigo-50 border-b border-indigo-100 p-4 flex items-center justify-between transition-all duration-300">
+        <div class="flex items-center">
+            <span class="font-bold text-indigo-800 text-sm mr-4"><span id="selectedCount">0</span> Selected</span>
+            <select name="action"
+                class="mui-input text-xs py-1.5 px-3 bg-white border-indigo-200 focus:border-indigo-500 transition mr-2">
+                <option value="" disabled selected>Choose Action...</option>
+                <option value="Confirmed">Mark Confirmed</option>
+                <option value="Completed">Mark Completed</option>
+                <option value="Cancelled">Mark Cancelled</option>
+                <option value="delete">Delete Selected</option>
+            </select>
+            <button type="submit"
+                onclick="return confirm('Are you sure you want to perform this action on selected orders?')"
+                class="px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-bold hover:bg-indigo-700 transition">
+                Apply
+            </button>
+        </div>
+        <button type="button" onclick="deselectAll()"
+            class="text-xs font-bold text-indigo-500 hover:text-indigo-700">Cancel</button>
     </div>
 
     <div class="overflow-x-auto scrollbar-hide">
         <table class="w-full text-left border-collapse">
             <thead>
                 <tr class="bg-gray-50/50 border-b border-gray-100">
+                    <th class="px-6 py-5 text-[11px] font-black text-gray-400 uppercase tracking-widest w-10">
+                        <input type="checkbox" id="selectAll" onclick="toggleSelectAll()"
+                            class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                    </th>
                     <th class="px-6 py-5 text-[11px] font-black text-gray-400 uppercase tracking-widest">Customer Info
                     </th>
                     <th class="px-6 py-5 text-[11px] font-black text-gray-400 uppercase tracking-widest">Shipping
@@ -164,6 +214,10 @@
             <tbody class="divide-y divide-gray-50">
                 {% for order in orders %}
                 <tr class="hover:bg-indigo-50/10 transition-colors">
+                    <td class="px-6 py-5">
+                        <input type="checkbox" name="order_ids" value="{{ order.id }}" onclick="updateBulkBar()"
+                            class="order-checkbox rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                    </td>
                     <td class="px-6 py-5">
                         <div class="flex flex-col">
                             <span class="font-bold text-gray-800 leading-tight mb-1">{{ order.full_name }}</span>
@@ -250,181 +304,237 @@
             </tbody>
         </table>
     </div>
-</div>
 
-<!-- Traffic Charts Header -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-    <!-- Top Referrers -->
-    <div class="mui-card p-6 lg:p-8">
-        <h3 class="font-bold text-gray-800 text-xl tracking-tight mb-6">Traffic Sources</h3>
-        <div class="space-y-4">
-            {% for referrer, count in traffic_stats.top_referrers %}
-            <div
-                class="flex justify-between items-center p-4 bg-white rounded-2xl border border-gray-50 shadow-sm transition hover:border-indigo-100">
-                <div class="flex items-center min-w-0">
-                    <div class="w-8 h-8 rounded-lg bg-pink-50 flex items-center justify-center text-pink-500 mr-3">
-                        <i class="fas fa-link text-sm"></i>
+    <!-- Pagination -->
+    {% if pagination.pages > 1 %}
+    <div class="p-6 border-t border-gray-50 flex justify-between items-center bg-gray-50/30">
+        <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">
+            Showing {{ pagination.page }} of {{ pagination.pages }}
+        </span>
+        <div class="flex gap-2">
+            {% if pagination.has_prev %}
+            <a href="{{ url_for('admin.admin_dashboard', page=pagination.prev_num, status=request.args.get('status'), search=request.args.get('search')) }}"
+                class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-bold text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 transition shadow-sm">
+                <i class="fas fa-chevron-left mr-1"></i> Prev
+            </a>
+            {% endif %}
+
+            {% if pagination.has_next %}
+            <a href="{{ url_for('admin.admin_dashboard', page=pagination.next_num, status=request.args.get('status'), search=request.args.get('search')) }}"
+                class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-bold text-gray-600 hover:bg-indigo-50 hover:text-indigo-600 transition shadow-sm">
+                Next <i class="fas fa-chevron-right ml-1"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    </div>
+
+    <!-- Traffic Charts Header -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+        <!-- Top Referrers -->
+        <div class="mui-card p-6 lg:p-8">
+            <h3 class="font-bold text-gray-800 text-xl tracking-tight mb-6">Traffic Sources</h3>
+            <div class="space-y-4">
+                {% for referrer, count in traffic_stats.top_referrers %}
+                <div
+                    class="flex justify-between items-center p-4 bg-white rounded-2xl border border-gray-50 shadow-sm transition hover:border-indigo-100">
+                    <div class="flex items-center min-w-0">
+                        <div class="w-8 h-8 rounded-lg bg-pink-50 flex items-center justify-center text-pink-500 mr-3">
+                            <i class="fas fa-link text-sm"></i>
+                        </div>
+                        <span class="text-sm font-bold text-gray-700 truncate max-w-[240px]">{{ referrer or 'Direct
+                            Visit'
+                            }}</span>
                     </div>
-                    <span class="text-sm font-bold text-gray-700 truncate max-w-[240px]">{{ referrer or 'Direct Visit'
-                        }}</span>
+                    <span class="text-sm font-black text-pink-600 bg-pink-50 px-3 py-1 rounded-full">{{ count }}</span>
                 </div>
-                <span class="text-sm font-black text-pink-600 bg-pink-50 px-3 py-1 rounded-full">{{ count }}</span>
+                {% endfor %}
             </div>
-            {% endfor %}
+        </div>
+
+        <!-- Traffic Trend Chart -->
+        <div class="mui-card p-6 lg:p-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                <h3 class="font-bold text-gray-800 text-xl tracking-tight">Visitor Trends</h3>
+                <div class="flex p-1 bg-gray-50 rounded-xl">
+                    <button
+                        class="traffic-chart-selector active px-4 py-1.5 rounded-lg text-xs font-bold transition-all"
+                        data-period="daily">Daily</button>
+                    <button
+                        class="traffic-chart-selector px-4 py-1.5 rounded-lg text-xs font-bold text-gray-500 transition-all hover:bg-white"
+                        data-period="weekly">Week</button>
+                </div>
+            </div>
+            <div class="h-64 w-full relative">
+                <canvas id="trafficChart"></canvas>
+            </div>
         </div>
     </div>
 
-    <!-- Traffic Trend Chart -->
-    <div class="mui-card p-6 lg:p-8">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-            <h3 class="font-bold text-gray-800 text-xl tracking-tight">Visitor Trends</h3>
-            <div class="flex p-1 bg-gray-50 rounded-xl">
-                <button class="traffic-chart-selector active px-4 py-1.5 rounded-lg text-xs font-bold transition-all"
-                    data-period="daily">Daily</button>
-                <button
-                    class="traffic-chart-selector px-4 py-1.5 rounded-lg text-xs font-bold text-gray-500 transition-all hover:bg-white"
-                    data-period="weekly">Week</button>
-            </div>
-        </div>
-        <div class="h-64 w-full relative">
-            <canvas id="trafficChart"></canvas>
-        </div>
-    </div>
-</div>
+    <script>
+        const chartData = {{ chart_data | tojson }};
+        const trafficChartData = {{ traffic_chart_data | tojson }};
 
-<script>
-    const chartData = {{ chart_data | tojson }};
-    const trafficChartData = {{ traffic_chart_data | tojson }};
+        let ordersChart;
+        let trafficChart;
 
-    let ordersChart;
-    let trafficChart;
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#94a3b8';
 
-    Chart.defaults.font.family = "'Inter', sans-serif";
-    Chart.defaults.color = '#94a3b8';
+        function updateChart(period) {
+            const ctx = document.getElementById('ordersChart').getContext('2d');
+            if (ordersChart) ordersChart.destroy();
 
-    function updateChart(period) {
-        const ctx = document.getElementById('ordersChart').getContext('2d');
-        if (ordersChart) ordersChart.destroy();
-
-        ordersChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: chartData[period].labels,
-                datasets: [{
-                    label: 'Orders',
-                    data: chartData[period].counts,
-                    borderColor: '#4f46e5',
-                    backgroundColor: 'transparent',
-                    borderWidth: 4,
-                    pointBackgroundColor: '#fff',
-                    pointBorderColor: '#4f46e5',
-                    pointBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHoverRadius: 6,
-                    fill: false,
-                    tension: 0.4
-                }, {
-                    label: 'Revenue',
-                    data: chartData[period].revenues,
-                    borderColor: '#10b981',
-                    backgroundColor: 'transparent',
-                    borderWidth: 4,
-                    pointBackgroundColor: '#fff',
-                    pointBorderColor: '#10b981',
-                    pointBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHoverRadius: 6,
-                    fill: false,
-                    tension: 0.4,
-                    yAxisID: 'y1'
-                }]
-            },
-            options: {
-                interaction: { intersect: false, mode: 'index' },
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: { grid: { display: false }, beginAtZero: true },
-                    y1: {
-                        grid: { display: false },
-                        beginAtZero: true,
-                        position: 'right',
-                        ticks: { callback: value => '৳' + value }
+            ordersChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartData[period].labels,
+                    datasets: [{
+                        label: 'Orders',
+                        data: chartData[period].counts,
+                        borderColor: '#4f46e5',
+                        backgroundColor: 'transparent',
+                        borderWidth: 4,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#4f46e5',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        fill: false,
+                        tension: 0.4
+                    }, {
+                        label: 'Revenue',
+                        data: chartData[period].revenues,
+                        borderColor: '#10b981',
+                        backgroundColor: 'transparent',
+                        borderWidth: 4,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#10b981',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        fill: false,
+                        tension: 0.4,
+                        yAxisID: 'y1'
+                    }]
+                },
+                options: {
+                    interaction: { intersect: false, mode: 'index' },
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { grid: { display: false }, beginAtZero: true },
+                        y1: {
+                            grid: { display: false },
+                            beginAtZero: true,
+                            position: 'right',
+                            ticks: { callback: value => '৳' + value }
+                        },
+                        x: { grid: { display: false } }
                     },
-                    x: { grid: { display: false } }
-                },
-                plugins: {
-                    legend: { position: 'top', align: 'end', labels: { boxWidth: 10, usePointStyle: true, font: { weight: 'bold' } } }
+                    plugins: {
+                        legend: { position: 'top', align: 'end', labels: { boxWidth: 10, usePointStyle: true, font: { weight: 'bold' } } }
+                    }
                 }
-            }
-        });
-    }
+            });
+        }
 
-    function updateTrafficChart(period) {
-        const ctx = document.getElementById('trafficChart').getContext('2d');
-        if (trafficChart) trafficChart.destroy();
+        function updateTrafficChart(period) {
+            const ctx = document.getElementById('trafficChart').getContext('2d');
+            if (trafficChart) trafficChart.destroy();
 
-        trafficChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: trafficChartData[period].labels,
-                datasets: [{
-                    label: 'Visitors',
-                    data: trafficChartData[period].counts,
-                    backgroundColor: '#8b5cf6',
-                    borderRadius: 8,
-                    barThickness: 'flex'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: { grid: { borderDash: [5, 5] }, beginAtZero: true },
-                    x: { grid: { display: false } }
+            trafficChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: trafficChartData[period].labels,
+                    datasets: [{
+                        label: 'Visitors',
+                        data: trafficChartData[period].counts,
+                        backgroundColor: '#8b5cf6',
+                        borderRadius: 8,
+                        barThickness: 'flex'
+                    }]
                 },
-                plugins: {
-                    legend: { display: false }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { grid: { borderDash: [5, 5] }, beginAtZero: true },
+                        x: { grid: { display: false } }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
                 }
-            }
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.chart-selector').forEach(button => {
-            button.addEventListener('click', function () {
-                document.querySelectorAll('.chart-selector').forEach(b => {
-                    b.classList.remove('active', 'bg-white', 'shadow-sm');
-                    b.classList.add('text-gray-500');
-                });
-                this.classList.add('active', 'bg-white', 'shadow-sm');
-                this.classList.remove('text-gray-500');
-                updateChart(this.dataset.period);
             });
-        });
+        }
 
-        document.querySelectorAll('.traffic-chart-selector').forEach(button => {
-            button.addEventListener('click', function () {
-                document.querySelectorAll('.traffic-chart-selector').forEach(b => {
-                    b.classList.remove('active', 'bg-white', 'shadow-sm');
-                    b.classList.add('text-gray-500');
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.chart-selector').forEach(button => {
+                button.addEventListener('click', function () {
+                    document.querySelectorAll('.chart-selector').forEach(b => {
+                        b.classList.remove('active', 'bg-white', 'shadow-sm');
+                        b.classList.add('text-gray-500');
+                    });
+                    this.classList.add('active', 'bg-white', 'shadow-sm');
+                    this.classList.remove('text-gray-500');
+                    updateChart(this.dataset.period);
                 });
-                this.classList.add('active', 'bg-white', 'shadow-sm');
-                this.classList.remove('text-gray-500');
-                updateTrafficChart(this.dataset.period);
             });
-        });
 
-        updateChart('daily');
+            document.querySelectorAll('.traffic-chart-selector').forEach(button => {
+                button.addEventListener('click', function () {
+                    document.querySelectorAll('.traffic-chart-selector').forEach(b => {
+                        b.classList.remove('active', 'bg-white', 'shadow-sm');
+                        b.classList.add('text-gray-500');
+                    });
+                    this.classList.add('active', 'bg-white', 'shadow-sm');
+                    this.classList.remove('text-gray-500');
+                    updateTrafficChart(this.dataset.period);
+                });
+            });
+
+            updateChart('daily');
+            updateTrafficChart('daily');
+        });
         updateTrafficChart('daily');
     });
-</script>
-<style>
-    .chart-selector.active,
-    .traffic-chart-selector.active {
-        background-color: white;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        color: #4f46e5 !important;
-    }
-</style>
-{% endblock %}
+
+        // Bulk Action Logic
+        function toggleSelectAll() {
+            const selectAll = document.getElementById('selectAll');
+            const checkboxes = document.querySelectorAll('.order-checkbox');
+            checkboxes.forEach(cb => cb.checked = selectAll.checked);
+            updateBulkBar();
+        }
+
+        function deselectAll() {
+            document.getElementById('selectAll').checked = false;
+            document.querySelectorAll('.order-checkbox').forEach(cb => cb.checked = false);
+            updateBulkBar();
+        }
+
+        function updateBulkBar() {
+            const checkboxes = document.querySelectorAll('.order-checkbox:checked');
+            const bar = document.getElementById('bulkActionsBar');
+            const countSpan = document.getElementById('selectedCount');
+
+            countSpan.textContent = checkboxes.length;
+
+            if (checkboxes.length > 0) {
+                bar.classList.remove('hidden');
+            } else {
+                bar.classList.add('hidden');
+            }
+        }
+    </script>
+    <style>
+        .chart-selector.active,
+        .traffic-chart-selector.active {
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            color: #4f46e5 !important;
+        }
+    </style>
+    {% endblock %}
