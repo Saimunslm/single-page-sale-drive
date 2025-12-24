@@ -60,6 +60,10 @@
     {{ settings.custom_body_script|safe }}
     {% endif %}
 
+    <!-- Logic to pick the main product (First product or Settings fallback) -->
+    {% set main_product = products[0] if products else None %}
+
+
     <!-- 1. Header Section -->
     <header class="fixed w-full top-0 z-50 glass-nav shadow-md transition-all duration-300"
         x-data="{ mobileMenuOpen: false }">
@@ -93,12 +97,10 @@
             x-transition:leave-end="opacity-0 -translate-y-2"
             class="md:hidden bg-white border-t border-brand-100 shadow-lg absolute w-full left-0 top-full">
             <div class="p-6 flex flex-col space-y-4 text-center">
-                <nav class="flex flex-col space-y-3 mb-4">
-                    <a href="#usp-section" @click="mobileMenuOpen = false"
-                        class="text-gray-600 font-medium hover:text-brand-600">কেন আমরা সেরা?</a>
-                    <a href="#order" @click="mobileMenuOpen = false"
-                        class="text-brand-800 font-bold hover:text-brand-600">অর্ডার করুন</a>
-                </nav>
+                <!-- Links removed as requested, only Order Now logic remains -->
+                <a href="#order" @click="mobileMenuOpen = false"
+                    class="text-brand-800 font-bold hover:text-brand-600 mb-2">অর্ডার করুন</a>
+
                 <a href="tel:{{ settings.support_phone }}"
                     class="bg-brand-600 text-white px-6 py-3 rounded-full font-bold shadow-md inline-block">
                     <i class="fas fa-phone-alt mr-2"></i> কল করুন
@@ -137,7 +139,11 @@
                         class="absolute inset-0 bg-brand-500 rounded-full filter blur-3xl opacity-20 transform scale-90">
                     </div>
                     <!-- Dynamic Hero Image -->
-                    {% if settings.image_path %}
+                    {% if main_product and main_product.image_path %}
+                    <img src="{{ main_product.image_path if main_product.image_path.startswith('http') else url_for('static', filename=main_product.image_path) }}"
+                        alt="{{ main_product.name }}"
+                        class="relative w-full max-w-lg mx-auto transform hover:scale-105 transition duration-500 drop-shadow-2xl">
+                    {% elif settings.image_path %}
                     <img src="{{ settings.image_path if settings.image_path.startswith('http') else url_for('static', filename=settings.image_path) }}"
                         alt="{{ settings.product_name }}"
                         class="relative w-full max-w-lg mx-auto transform hover:scale-105 transition duration-500 drop-shadow-2xl">
@@ -202,70 +208,41 @@
                 <div class="w-24 h-1 bg-brand-500 mx-auto mt-4 rounded"></div>
             </div>
 
-            {% if products %}
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {% for product in products %}
-                <div
-                    class="bg-white rounded-2xl shadow-lg overflow-hidden border border-brand-100 hover:shadow-2xl transition duration-300 flex flex-col h-full group">
-                    <div class="relative h-64 overflow-hidden bg-gray-100">
-                        {% if product.image_path %}
-                        {% if product.image_path.startswith('http') %}
-                        <img src="{{ product.image_path }}" alt="{{ product.name }}"
-                            class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-                        {% else %}
-                        <img src="{{ url_for('static', filename=product.image_path) }}" alt="{{ product.name }}"
-                            class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-                        {% endif %}
-                        {% else %}
-                        <div class="flex items-center justify-center h-full text-gray-300">
-                            <i class="fas fa-image text-4xl"></i>
-                        </div>
-                        {% endif %}
-
-                        {% if product.stock > 0 %}
-                        <div
-                            class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                            ইন স্টক
-                        </div>
-                        {% else %}
-                        <div
-                            class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                            আউট অফ স্টক
-                        </div>
-                        {% endif %}
-                    </div>
-
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold text-earth mb-2 line-clamp-2">{{ product.name }}</h3>
-                        <p class="text-gray-500 text-sm mb-4 line-clamp-3 flex-grow">{{ product.description }}</p>
-
-                        <div class="flex items-end justify-between mt-auto pt-4 border-t border-gray-100">
-                            <div>
-                                {% if product.old_price %}
-                                <p class="text-gray-400 text-sm line-through">৳{{ product.old_price | bn_digits }}</p>
-                                {% endif %}
-                                <p class="text-2xl font-bold text-brand-600">৳{{ product.price | bn_digits }}</p>
-                            </div>
-
-                            <button
-                                onclick='selectProduct("{{ product.id }}", "{{ product.name | replace("\"", "\\\"") }}", {{ product.price }}, "{{ product.image_path }}")'
-                                class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2 rounded-lg font-bold shadow transition transform hover:-translate-y-1">
-                                অর্ডার করুন
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            {% else %}
-            <!-- Fallback to Single Product View if no products list -->
+            <!-- Single Product View (Replaces Grid) -->
             <div
                 class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-brand-100 flex flex-col lg:flex-row">
-                <div class="lg:w-1/2 relative bg-brand-100 min-h-[400px]">
-                    <img src="{{ url_for('static', filename='themes/multy/images/img2.jpg') }}" alt="Product Showcase"
-                        class="absolute inset-0 w-full h-full object-cover">
+                <div class="lg:w-1/2 relative bg-brand-100 min-h-[400px] flex items-center justify-center">
+                    {% if main_product and main_product.image_path %}
+                    <img src="{{ main_product.image_path if main_product.image_path.startswith('http') else url_for('static', filename=main_product.image_path) }}"
+                        alt="{{ main_product.name }}"
+                        class="max-h-[500px] w-auto object-contain p-4 hover:scale-105 transition duration-500">
+                    {% elif settings.image_path %}
+                    <img src="{{ settings.image_path if settings.image_path.startswith('http') else url_for('static', filename=settings.image_path) }}"
+                        alt="{{ settings.product_name }}"
+                        class="max-h-[500px] w-auto object-contain p-4 hover:scale-105 transition duration-500">
+                    {% else %}
+                    <div class="flex items-center justify-center h-full text-gray-300">
+                        <i class="fas fa-image text-4xl"></i>
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center">
+                    {% if main_product %}
+                    <h3 class="text-3xl font-bold text-earth mb-4">{{ main_product.name }}</h3>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">{{ main_product.description }}</p>
+
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="bg-red-50 text-red-600 px-4 py-2 rounded-lg font-bold">
+                            বিশেষ অফার
+                        </div>
+                        {% if main_product.old_price %}
+                        <span class="text-gray-400 line-through text-xl">৳{{ main_product.old_price | bn_digits
+                            }}</span>
+                        {% endif %}
+                        <span class="text-4xl font-extrabold text-brand-600">৳{{ main_product.price | bn_digits
+                            }}</span>
+                    </div>
+                    {% else %}
                     <h3 class="text-3xl font-bold text-earth mb-4">{{ settings.product_name }}</h3>
                     <p class="text-gray-600 mb-6 text-lg leading-relaxed">{{ settings.product_description }}</p>
 
@@ -276,6 +253,7 @@
                         <span class="text-gray-400 line-through text-xl">৳{{ settings.old_price | bn_digits }}</span>
                         <span class="text-4xl font-extrabold text-brand-600">৳{{ settings.price | bn_digits }}</span>
                     </div>
+                    {% endif %}
 
                     <div class="grid grid-cols-2 gap-4 mb-8">
                         <div class="bg-gray-50 p-4 rounded-xl flex items-center gap-3">
@@ -300,7 +278,6 @@
                     </a>
                 </div>
             </div>
-            {% endif %}
         </div>
     </section>
 
@@ -555,13 +532,16 @@
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.data('orderLogic', () => ({
-                basePrice: {{ settings.price }},
-            qty: 1,
+                {% if main_product %}
+                basePrice: {{ main_product.price }},
+            productName: `{{ main_product.name }}`,
+            productImageSrc: `{{ main_product.image_path if main_product.image_path.startswith('http') else url_for('static', filename=main_product.image_path) }}`,
+            {% else %}
+            basePrice: {{ settings.price }},
             productName: `{{ settings.product_name }}`,
-            // Initialize with rendered src. 
-            // We access the DOM element to get the initial source rendered by Jinja in case it differs.
-            // But typically it's cleaner to construct it.
             productImageSrc: `{{ settings.image_path if settings.image_path.startswith('http') else url_for('static', filename=settings.image_path) }}`,
+            {% endif %}
+            qty: 1,
 
             get total() {
             return this.basePrice * this.qty;
@@ -573,15 +553,15 @@
                 if(n === undefined || n === null) return '';
         return n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
                 },
+        // Handle selection not strictly needed for single product view but keeping it doesn't hurt
         handleSelection(detail) {
             this.basePrice = detail.price;
             this.productName = detail.name;
-            this.qty = 1; // Reset quantity on product switch
+            this.qty = 1;
 
             if (detail.imagePath.startsWith('http') || detail.imagePath.startsWith('/')) {
                 this.productImageSrc = detail.imagePath;
             } else {
-                // Construct static path
                 const staticBase = "{{ url_for('static', filename='') }}";
                 this.productImageSrc = staticBase + detail.imagePath;
             }
@@ -592,12 +572,7 @@
             }));
         });
 
-        // Global shim for existing onclick handlers in product loop
-        function selectProduct(id, name, price, imagePath) {
-            window.dispatchEvent(new CustomEvent('product-selected', {
-                detail: { id, name, price, imagePath }
-            }));
-        }
+        // Removed global shim as selectProduct is no longer used in grid
     </script>
     <!-- Floating Call Button (Mobile Only) -->
     <a href="tel:{{ settings.support_phone }}" id="floating-call-btn"
